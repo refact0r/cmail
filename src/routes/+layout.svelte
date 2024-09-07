@@ -24,7 +24,7 @@
 			</div>
 			<div class="box">
 				<div class="server-select">
-					<label for="server">Server: </label>
+					<label for="server">Profile: </label>
 					<select name="server" id="server">
 						<option value="earth">Earth</option>
 						<option value="moon">Moon</option>
