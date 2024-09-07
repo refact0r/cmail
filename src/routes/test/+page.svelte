@@ -34,7 +34,7 @@
 
 
 
-<style lang="scss">
+<style>
     .content{
         padding: 1.5rem;
     }

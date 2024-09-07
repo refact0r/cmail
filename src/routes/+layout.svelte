@@ -1,5 +1,5 @@
 <script>
-	import '../app.scss';
+	import '../app.css';
 	import { fade } from 'svelte/transition';
 
 	export let data;
@@ -38,7 +38,7 @@
 	{/key}
 </div>
 
-<style lang="scss">
+<style>
 	.app {
 		height: 100%;
 		min-height: 100vh;
