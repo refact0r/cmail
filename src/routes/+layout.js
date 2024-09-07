@@ -1,9 +1,7 @@
-export const prerender = true;
-
-export const load = ({ url }) => {
+export async function load({ url }) {
 	const { pathname } = url;
 
 	return {
 		pathname
 	};
-};
+}
