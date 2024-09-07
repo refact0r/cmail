@@ -1,24 +1,12 @@
-<div class="logo">
-    <h1>Placeholder</h1>
-</div>
-<div class="navbar">
-    <a class="selected" href="/test">‎ Home ‎</a>
-    <a href="/test/communicate">‎ Communicate ‎</a>
-    <a href="/test/about">‎ About ‎</a>
-</div>
 <div class="content">
-    <div class="server-select">
-        <label for="server">Server: </label>
-        <select name="server" id="server">
-            <option value="earth">Earth</option>
-            <option value="moon">Moon</option>
-            <option value="mars">Mars</option>
-          </select>
+    <br>
+    <div class="quick-send">
+        <a href="/test/send">Send a message ➤</a>
     </div>
     <br>
     <div class="row">
         <div class="swappable">
-            <p>Incoming | Outgoing<p>
+            <p>Recent Incoming | Recent Outgoing<p>
         </div>
         <div class="panel">
             <p>Guide</p>
@@ -47,28 +35,14 @@
 
 
 <style lang="scss">
-
-    .logo{
-        text-align: center;
-    }
-    a {
-        color: white;
-        text-decoration: none;
-    }
-    .navbar{
-        text-align: center;
-        
-    }
-    .server-select{
-        text-align: center;
-    }
-    .selected{
-        color: black;
-        background-color: white;
-    }
     .content{
         padding: 1.5rem;
     }
+    .quick-send{
+        padding: 1rem;
+        text-align: center;
+    }
+
     .row{
         display: flex;
     }
