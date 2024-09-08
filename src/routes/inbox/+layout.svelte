@@ -27,23 +27,25 @@
 				on:click={() => (select = 'outgoing')}>Outgoing</button
 			>
 		</div> -->
-		<div class="side box">
-			<div class="messages">
-				{#each messages as message}
-					<a class="message box2" href="/inbox/{message.id}">
-						<div class="content-container">
-							<p class="content">{message.content}</p>
-							<div class="new">•</div>
-						</div>
-						<p class="details">
-							<span class="from">{message.from}</span>
-							<span class="separator">•</span>
-							<span class="date">{formatDate(message.created_at)}</span>
-							<span class="separator">•</span>
-							<span class="time">{formatTime(message.created_at)}</span>
-						</p>
-					</a>
-				{/each}
+		<div class="side">
+			<div class="box">
+				<div class="messages">
+					{#each messages as message}
+						<a class="message box2" href="/inbox/{message.id}">
+							<div class="content-container">
+								<p class="content">{message.content}</p>
+								<div class="new">•</div>
+							</div>
+							<p class="details">
+								<span class="from">{message.from}</span>
+								<span class="separator">•</span>
+								<span class="date">{formatDate(message.created_at)}</span>
+								<span class="separator">•</span>
+								<span class="time">{formatTime(message.created_at)}</span>
+							</p>
+						</a>
+					{/each}
+				</div>
 			</div>
 		</div>
 		<div class="side">
@@ -57,14 +59,25 @@
 		font-family: 'Orbitron', sans-serif;
 		text-align: center;
 	}
+	.page {
+		display: flex;
+		flex-direction: column;
+	}
 	.container {
 		display: flex;
-		gap: 2rem;
+		gap: 1rem;
+		flex: 1;
 	}
 	.side {
-		width: 50%;
+		width: 100%;
+		display: flex;
+		padding: 0;
+	}
+	.side .box {
+		width: 100%;
 	}
 	.messages {
+		flex: 1;
 		display: flex;
 		flex-direction: column;
 		gap: 0.5rem;
