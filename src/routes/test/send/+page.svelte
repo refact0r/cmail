@@ -4,6 +4,7 @@
     import { formatAU, formatSecs } from '$lib/js/utils.js';
     import * as constants from '$lib/js/constants.js';
 	import { afterUpdate } from 'svelte';
+    import {enhance} from "$app/forms"
 
     export let data;
 
@@ -23,16 +24,12 @@
         let delay_sec = (distance_km / constants.c) * 1000;
         delay = formatSecs(delay_sec);
     }
-
-    function sendMessage() {
-        //posts message and delay to database
-    }
 </script>
 
 <div class="page">
     <h1>Send</h1>
     <div class="form-box">
-        <form on:submit|preventDefault={() => sendMessage()}>
+		<form method="POST" use:enhance={({formData}) => formData.append("delay", delay_sec)}>
             <div class="row">
                 <div class="half">
                     <svg viewBox="0 0 2000 1000">
