@@ -2,82 +2,87 @@
     import { profile } from '$lib/stores/profile.js';
 
     let destination = 'earth';
-    let distance = 0;
-    let delay = 0;
+    let distance;
+    let delay;
+
+    
 
     function sendMessage() {
         //posts message and delay to database
     }
 </script>
 
-<h1>Send</h1>
-<div class="form-box">
-    <form on:submit|preventDefault={() => sendMessage()}>
-        <div class="row">
-            <div class="column">
-                <div class="row">
-                    <div class="group">
-                        <label for="profile">Profile: </label>
-                        <br>
-                        <select name="profile" id="profile" title="Select planet" bind:value={$profile}>
-                            <option value="mercury" title="Mercury">Mercury</option>
-                            <option value="venus" title="Venus">Venus</option>
-                            <option value="earth" title="Earth">Earth</option>
-                            <option value="moon" title="Moon">Moon</option>
-                            <option value="mars" title="Mars">Mars</option>
-                            <option value="jupiter" title="Jupiter">Jupiter</option>
-                            <option value="saturn" title="Saturn">Saturn</option>
-                            <option value="uranus" title="Uranus">Uranus</option>
-                            <option value="neptune" title="Neptune">Neptune</option>
-                            <option value="pluto" title="Pluto">Pluto</option>
+<div class="page">
+    <h1>Send</h1>
+    <div class="form-box">
+        <form on:submit|preventDefault={() => sendMessage()}>
+            <div class="row">
+                <div class="column">
+                    <div class="row">
+                        <div class="group">
+                            <label for="profile">Profile: </label>
+                            <br>
+                            <select name="profile" id="profile" title="Select planet" bind:value={$profile}>
+                                <option value="mercury" title="Mercury">Mercury</option>
+                                <option value="venus" title="Venus">Venus</option>
+                                <option value="earth" title="Earth">Earth</option>
+                                <option value="moon" title="Moon">Moon</option>
+                                <option value="mars" title="Mars">Mars</option>
+                                <option value="jupiter" title="Jupiter">Jupiter</option>
+                                <option value="saturn" title="Saturn">Saturn</option>
+                                <option value="uranus" title="Uranus">Uranus</option>
+                                <option value="neptune" title="Neptune">Neptune</option>
+                                <option value="pluto" title="Pluto">Pluto</option>
+                                </select>
+                        </div>
+                        <div class="group">
+                            <label for="destination">Destination</label>
+                            <br />
+                            <select name="destination" id="destination" title="Destination" bind:value={destination}>
+                                <option value="mercury" title="Mercury">Mercury</option>
+                                <option value="venus" title="Venus">Venus</option>
+                                <option value="earth" title="Earth">Earth</option>
+                                <option value="moon" title="Moon">Moon</option>
+                                <option value="mars" title="Mars">Mars</option>
+                                <option value="jupiter" title="Jupiter">Jupiter</option>
+                                <option value="saturn" title="Saturn">Saturn</option>
+                                <option value="uranus" title="Uranus">Uranus</option>
+                                <option value="neptune" title="Neptune">Neptune</option>
+                                <option value="pluto" title="Pluto">Pluto</option>
                             </select>
+                        </div>
                     </div>
-                    <div class="group">
-                        <label for="destination">Destination</label>
-                        <br />
-                        <select name="destination" id="destination" title="Destination" bind:value={destination}>
-                            <option value="mercury" title="Mercury">Mercury</option>
-                            <option value="venus" title="Venus">Venus</option>
-                            <option value="earth" title="Earth">Earth</option>
-                            <option value="moon" title="Moon">Moon</option>
-                            <option value="mars" title="Mars">Mars</option>
-                            <option value="jupiter" title="Jupiter">Jupiter</option>
-                            <option value="saturn" title="Saturn">Saturn</option>
-                            <option value="uranus" title="Uranus">Uranus</option>
-                            <option value="neptune" title="Neptune">Neptune</option>
-                            <option value="pluto" title="Pluto">Pluto</option>
-                        </select>
-                    </div>
-                </div>
-                <br>
-                <div class="group">
-                    <label for="message">Message</label>
                     <br>
-                    <textarea name="message" id="message" maxlength="400" required></textarea>
-                </div>
-            </div>
-            <div class="column"></div><div class="column"></div><div class="column"></div>
-            <div class="column">
-                <div class="row">
                     <div class="group">
-                        <label for="distance">Calculated Distance</label>
+                        <label for="message">Message</label>
                         <br>
-                        <input type="text" id="distance" name="distance" title="Distance" bind:value={distance} readonly> AU    
-                    </div>
-                    <div class="group">
-                        <label for="delay">Calculated Delay</label>
-                        <br>
-                        <input type="text" id="delay" name="delay" title="Delay" bind:value={delay} readonly> seconds
+                        <textarea name="message" id="message" maxlength="400" required></textarea>
                     </div>
                 </div>
+                <div class="column"></div><div class="column"></div><div class="column"></div>
+                <div class="column">
+                    <div class="row">
+                        <div class="group">
+                            <label for="distance">Calculated Distance</label>
+                            <br>
+                            <input type="text" id="distance" name="distance" title="Distance" bind:value={distance} readonly> AU    
+                        </div>
+                        <div class="group">
+                            <label for="delay">Calculated Delay</label>
+                            <br>
+                            <input type="text" id="delay" name="delay" title="Delay" bind:value={delay} readonly> seconds
+                        </div>
+                    </div>
+                </div>
+                <div class="column"></div><div class="column"></div><div class="column"></div><div class="column"></div><div class="column"></div><div class="column"></div><div class="column">
+                <div class="column r">
+                    <input type="submit" value="➤" title="Send">
+                </div>
             </div>
-            <div class="column"></div><div class="column"></div><div class="column"></div><div class="column"></div><div class="column"></div><div class="column"></div><div class="column">
-            <div class="column r">
-                <input type="submit" value="➤" title="Send">
-            </div>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>
+
 
 <style>
     h1 {

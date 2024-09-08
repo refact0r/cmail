@@ -1,4 +1,7 @@
-<h1>About</h1>
+<div class="page">
+    <h1>About</h1>
+</div>
+
 
 <style>
     h1 {
