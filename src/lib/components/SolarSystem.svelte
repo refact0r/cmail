@@ -1,5 +1,5 @@
 <script>
-	import { coords, dist, sunDist, scaleDiam, scaleDist } from '$lib/js/planets.js';
+	import { coords, dist, sunDist, scaleDiam, scaleDist, convertPlanet } from '$lib/js/planets.js';
 	import { formatAU, formatSecs } from '$lib/js/utils.js';
 	import * as constants from '$lib/js/constants.js';
 	import { profile } from '$lib/stores/profile.js';
@@ -13,18 +13,6 @@
 
 	$: console.log(date);
 	$: console.log(days);
-
-	function convertPlanet(planet, date) {
-		let hor = {};
-		const today = formatCSVDate(date);
-		for (const row of planet.full) {
-			if (row.calendar.includes(today)) {
-				hor = row;
-				break;
-			}
-		}
-		return { ...planet, ...hor };
-	}
 
 	$: calc = Object.values(data.planets)
 		.map((planet) => {
@@ -269,5 +257,14 @@
 		border: 2px solid var(--bg-5);
 		cursor: pointer;
 		border-radius: 1rem;
+	}
+
+	.slider::-webkit-slider-thumb:hover {
+		background: var(--bg-5);
+		border-color: var(--fg-3);
+	}
+	.slider::-moz-range-thumb:hover {
+		background: var(--bg-5);
+		border-color: var(--fg-3);
 	}
 </style>

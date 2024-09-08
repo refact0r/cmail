@@ -25,7 +25,7 @@
 <div class="page">
 	<div class="side">
 		<div class="new box">
-			<h2>Recent</h2>
+			<h2>recent</h2>
 			<div class="messages">
 				{#each messages as message}
 					<a class="message box2" href="/inbox/{message.id}">
@@ -52,7 +52,7 @@
 	</div>
 	<div class="side">
 		<div class="outgoing box">
-			<h2>Outgoing</h2>
+			<h2>outgoing</h2>
 			<div class="messages">
 				{#each outgoingMessages as message}
 					<a class="message box2" href="/inbox/{message.id}">
@@ -73,8 +73,6 @@
 						</div>
 						<p class="details">
 							<span class="to">{message.to}</span>
-							<span class="separator">•</span>
-							<span class="date">{formatDate(message.arrives_at)}</span>
 							<span class="separator">•</span>
 							<span class="time"
 								>{formatSecs((new Date(message.arrives_at) - new Date()) / 1000)} remaining</span
