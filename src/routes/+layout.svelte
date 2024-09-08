@@ -66,6 +66,8 @@
 		gap: 0.5rem;
 		padding: 0.5rem 0.75rem;
 		border-radius: 1rem;
+		border: 2px solid transparent;
+		transition: 0.1s;
 	}
 	h1 {
 		/* font-family: 'DM Mono', monospace; */
@@ -73,8 +75,8 @@
 		margin: 0;
 	}
 	.title:hover {
-		background-color: var(--fg);
-		color: var(--bg);
+		background-color: var(--bg-2);
+		border-color: var(--bg-3);
 	}
 
 	nav {
@@ -99,8 +101,8 @@
 	}
 	select:hover {
 		cursor: pointer;
-		background-color: var(--fg);
-		color: var(--bg);
+		background-color: var(--bg-2);
+		border-color: var(--bg-3);
 	}
 
 	.items {
@@ -116,10 +118,11 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		border: 2px solid transparent;
 		transition: 0.1s;
 	}
 	.item:hover {
-		color: var(--bg);
-		background-color: var(--fg);
+		background-color: var(--bg-2);
+		border-color: var(--bg-3);
 	}
 </style>
