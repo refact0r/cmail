@@ -31,5 +31,9 @@
 		"vite": "^5.0.3",
 		"vitest": "^2.0.0"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"@fontsource-variable/dm-sans": "^5.0.8",
+		"@fontsource/dm-mono": "^5.0.22"
+	}
 }
