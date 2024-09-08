@@ -24,7 +24,7 @@
 <div class="page">
 	<div class="side">
 		<div class="new box">
-			<h2>New</h2>
+			<h2>Recent</h2>
 			<div class="messages">
 				{#each messages as message}
 					<a class="message box2" href="/inbox/{message.id}">
