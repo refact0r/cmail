@@ -35,6 +35,7 @@
 		"@fontsource-variable/dm-sans": "^5.0.8",
 		"@fontsource/dm-mono": "^5.0.22",
 		"@supabase/supabase-js": "^2.45.3",
+		"@zerodevx/svelte-toast": "^0.9.5",
 		"prettier": "^3.3.3",
 		"svelte-persisted-store": "^0.11.0"
 	}
