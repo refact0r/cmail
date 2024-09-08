@@ -6,6 +6,7 @@
 	import { afterUpdate } from 'svelte';
     import {enhance} from "$app/forms"
 	import IconSend from 'phosphor-svelte/lib/PaperPlaneRight';
+    import {toast} from "@zerodevx/svelte-toast"
 
     export let data;
 
@@ -31,7 +32,13 @@
 <div class="page">
     <h1>Send</h1>
     <div class="form-box">
-		<form method="POST" use:enhance={({formData}) => formData.append("delay", delay_sec)}>
+		<form 
+            method="POST" 
+            use:enhance={({formData}) => {
+                formData.append("delay", delay_sec);
+                toast.push("Message Sent!");
+            }}
+        >
             <div class="row">
                 <div class="half">
                     <svg viewBox="0 0 2000 1000">
