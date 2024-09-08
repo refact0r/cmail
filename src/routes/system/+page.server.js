@@ -27,7 +27,7 @@ export async function load() {
 		}
 
 		return {
-			data
+			horizons: data
 		};
 	} catch (e) {
 		console.error('Error processing CSV files:', e);

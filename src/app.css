@@ -1,18 +1,22 @@
 :root {
-	--bg: hsl(0, 0%, 5%);
-	--bg-2: hsl(0, 0%, 10%);
-	--bg-3: hsl(40, 4%, 15%);
-	--fg-3: hsl(50, 2%, 30%);
+	--bg: hsl(50, 0%, 5%);
+	--bg-2: hsl(50, 1%, 10%);
+	--bg-3: hsl(50, 2%, 15%);
+	--fg-3: hsl(50, 3%, 30%);
 	--fg-2: hsl(50, 5%, 50%);
 	--fg: hsl(50, 25%, 80%);
 	font-family: 'Dm sans', sans-serif;
 	font-weight: 400;
 }
 
+* {
+	box-sizing: border-box;
+}
+
 body {
 	--dot-bg: var(--bg);
-	--dot-color: var(--fg-3);
-	--dot-size: 1px;
+	--dot-color: var(--bg-2);
+	--dot-size: 2px;
 	--dot-space: 22px;
 	background:
 		linear-gradient(90deg, var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%)
@@ -24,4 +28,14 @@ body {
 	margin: 0;
 	min-height: 100vh;
 	height: 100%;
+}
+
+.page {
+	flex: 1;
+}
+
+code {
+	font-family: 'DM Mono', monospace;
+	background-color: var(--bg);
+	padding: 0.0625rem 0.25rem;
 }
