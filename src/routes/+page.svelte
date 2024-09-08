@@ -8,7 +8,7 @@
 
 	export let data;
 
-	$: messages = filterMessages(data.messages, $profile, $messagesRead);
+	$: messages = filterMessages(data.messages, $profile, $messagesRead, 5);
 
 	$: outgoingMessages = data.messages
 		.filter((message) => message.from === $profile)
