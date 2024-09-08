@@ -15,3 +15,11 @@ export function formatSecs(s) {
 
 	return `${hrs}h ${mins}m ${secs}s`;
 }
+
+export function formatCSVDate(date) {
+	const year = date.getFullYear();
+	const month = date.toLocaleString('default', { month: 'short' });
+	const day = date.getDate().toString().padStart(2, '0');
+
+	return `${year}-${month}-${day}`;
+}

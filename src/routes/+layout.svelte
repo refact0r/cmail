@@ -13,7 +13,7 @@
 </script>
 
 <div class="app">
-	<div class="navbar">
+	<nav class="navbar">
 		<div class="title">
 			<a class="brand" href="/test" title="starbound">starbound <IconSS /></a>
 		</div>
@@ -37,7 +37,7 @@
 			<a class="item" href="/test/send" title="Send messages"><IconSend /></a>
 			<a class="item" href="/test/about" title="About"><IconAbout /></a>
 		</div>
-	</div>
+	</nav>
 	{#key data.pathname}
 		<div class="content" in:fade={{ duration: 200, delay: 200 }} out:fade={{ duration: 200 }}>
 			<slot />
@@ -49,6 +49,8 @@
 	.app {
 		height: 100%;
 		min-height: 100vh;
+		display: flex;
+		flex-direction: column;
 	}
 
 	a {
@@ -62,7 +64,6 @@
 		justify-content: space-between;
 		align-items: start;
 		padding: 1rem 2rem 0rem;
-		font-family: 'Orbitron', sans-serif;
 	}
 	label {
 		color: var(--fg);
@@ -71,7 +72,7 @@
 		font-size: 2rem;
 		color: var(--fg);
 		transition: 0.3s;
-		padding: .5rem;
+		padding: 0.5rem;
 		border-radius: 1rem;
 	}
 	.brand:hover {
@@ -100,7 +101,6 @@
 	#server {
 		border-radius: 0.2rem;
 		outline: none;
-		font-family: 'Orbitron', sans-serif;
 		background-color: var(--bg);
 		color: var(--fg);
 		width: 8vw;
@@ -112,6 +112,7 @@
 	}
 
 	.content {
-		padding: 1rem 2rem 0rem;
+		flex: 1;
+		display: flex;
 	}
 </style>

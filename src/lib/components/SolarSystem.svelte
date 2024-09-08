@@ -1,34 +1,36 @@
 <script>
-	import planetData from '$lib/data/planetData.js';
 	import { coords, dist, sunDist, scaleDiam, scaleDist } from '$lib/js/planets.js';
 	import { formatAU, formatSecs } from '$lib/js/utils.js';
 	import * as constants from '$lib/js/constants.js';
+	import { profile } from '$lib/stores/profile.js';
 
 	export let data;
 
-	const curr = 6;
-	$: currDisplay = coords(planetData[curr], data.horizons[planetData[curr].name]);
+	$: console.log(data);
 
-	$: calc = planetData.map((planet) => {
-		const currDist = dist(data.horizons[planetData[curr].name], data.horizons[planet.name]);
-		return {
-			...planet,
-			...coords(planet, data.horizons[planet.name]),
-			...data.horizons[planet.name],
-			currDist,
-			currTime: (currDist / constants.c) * 1000,
-			sunDist: sunDist(data.horizons[planet.name])
-		};
-	});
+	$: currDisplay = coords(data.planets[$profile]);
 
-	let popupCurr = 0;
+	$: calc = Object.values(data.planets)
+		.map((planet) => {
+			const currDist = dist(data.planets[$profile], data.planets[planet.name]);
+			return {
+				...planet,
+				...coords(planet),
+				currDist,
+				currTime: (currDist / constants.c) * 1000,
+				sunDist: sunDist(planet)
+			};
+		})
+		.sort((a, b) => a.index - b.index);
+
+	let popupIndex = 0;
 	let popupVisible = false;
 	let popupX = 0;
 	let popupY = 0;
 
 	function LineMouseOver(event, i) {
 		popupVisible = true;
-		popupCurr = i;
+		popupIndex = i;
 		const { clientX, clientY } = event;
 		popupX = clientX + 10;
 		popupY = clientY + 10;
@@ -57,7 +59,7 @@
 		/>
 	{/each}
 	{#each calc as planet, i}
-		{#if i !== curr}
+		{#if planet.name !== $profile}
 			<line
 				x1={planet.displayX}
 				y1={planet.displayY}
@@ -76,7 +78,7 @@
 		{/if}
 	{/each}
 	{#each calc as planet, i}
-		{#if i === curr}
+		{#if planet.name === $profile}
 			<circle
 				class="planet"
 				cx={planet.displayX}
@@ -86,7 +88,7 @@
 			/>
 			<text
 				x={planet.displayX}
-				y={planet.displayY + scaleDiam(planet.diameter) + 20}
+				y={planet.displayY + scaleDiam(planet.diameter) + 18}
 				text-anchor="middle"
 				fill="white"
 			>
@@ -109,16 +111,8 @@
 			/>
 			<text
 				x={planet.displayX}
-				y={planet.displayY + scaleDiam(planet.diameter) + 20}
+				y={planet.displayY + scaleDiam(planet.diameter) + 18}
 				text-anchor="middle"
-				fill="white"
-				tabindex="0"
-				role="button"
-				on:mouseover|preventDefault={(event) => LineMouseOver(event, i)}
-				on:focus|preventDefault={(event) => LineMouseOver(event, i)}
-				on:mousemove|preventDefault={(event) => LineMouseMove(event)}
-				on:mouseout|preventDefault={() => LineMouseOut()}
-				on:blur|preventDefault={() => LineMouseOut()}
 			>
 				{planet.name}
 			</text>
@@ -128,12 +122,16 @@
 
 {#if popupVisible}
 	<div class="popup" style="left: {popupX}px; top: {popupY}px;">
-		<h3>{calc[popupCurr].name}</h3>
-		<p>distance from sun: {formatAU(calc[popupCurr].sunDist)} AU</p>
-		<p>distance from {planetData[curr].name}: {formatAU(calc[popupCurr].currDist)} AU</p>
+		<h3>{calc[popupIndex].name}</h3>
 		<p>
-			message time from {planetData[curr].name}: {formatSecs(calc[popupCurr].currTime)}
+			message time from {data.planets[$profile].name}:
+			<code>{formatSecs(calc[popupIndex].currTime)}</code>
 		</p>
+		<p>
+			distance from {data.planets[$profile].name}:
+			<code> {formatAU(calc[popupIndex].currDist)} AU</code>
+		</p>
+		<p>distance from sun: <code>{formatAU(calc[popupIndex].sunDist)} AU</code></p>
 	</div>
 {/if}
 
@@ -149,9 +147,10 @@
 	text {
 		font-weight: 300;
 		font-size: 0.875rem;
+		fill: var(--fg);
 	}
 	text:hover {
-		cursor: pointer;
+		cursor: default;
 	}
 	.planet:hover {
 		cursor: pointer;
@@ -168,7 +167,7 @@
 	.popup {
 		position: fixed;
 		background-color: var(--bg-2);
-		/* border: 2px solid var(--fg-3); */
+		border: 2px solid var(--bg-3);
 		padding: 1rem;
 		display: flex;
 		flex-direction: column;

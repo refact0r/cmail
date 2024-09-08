@@ -5,27 +5,27 @@ export function scaleDiam(diameter) {
 }
 
 export function scaleDist(distance) {
-	const ratio = distance / 57.9;
+	const ratio = distance / 57.9; //
 	const log = Math.log2(ratio + 1);
 	return log * 70;
 }
-export function coords(planet, hor) {
-	const radians = Math.atan2(hor.y, hor.x);
+export function coords(planet) {
+	const radians = Math.atan2(planet.y, planet.x);
 	const x = scaleDist(planet.distance) * Math.cos(radians + Math.PI) + 500;
 	const y = scaleDist(planet.distance) * Math.sin(radians + Math.PI) + 500;
 	return { displayX: x, displayY: y };
 }
 
-export function dist(hor1, hor2) {
-	const a = Math.pow(hor2.x - hor1.x, 2);
-	const b = Math.pow(hor2.y - hor1.y, 2);
-	const c = Math.pow(hor2.z - hor1.z, 2);
+export function dist(planet1, planet2) {
+	const a = Math.pow(planet2.x - planet1.x, 2);
+	const b = Math.pow(planet2.y - planet1.y, 2);
+	const c = Math.pow(planet2.z - planet1.z, 2);
 	return Math.sqrt(a + b + c);
 }
 
-export function sunDist(hor) {
-	const a = Math.pow(hor.x, 2);
-	const b = Math.pow(hor.y, 2);
-	const c = Math.pow(hor.z, 2);
+export function sunDist(planet) {
+	const a = Math.pow(planet.x, 2);
+	const b = Math.pow(planet.y, 2);
+	const c = Math.pow(planet.z, 2);
 	return Math.sqrt(a + b + c);
 }
