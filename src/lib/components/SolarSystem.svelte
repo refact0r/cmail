@@ -70,10 +70,8 @@
 				tabindex="0"
 				role="button"
 				on:mouseover|preventDefault={(event) => LineMouseOver(event, i)}
-				on:focus|preventDefault={(event) => LineMouseOver(event, i)}
 				on:mousemove|preventDefault={(event) => LineMouseMove(event)}
 				on:mouseout|preventDefault={() => LineMouseOut()}
-				on:blur|preventDefault={() => LineMouseOut()}
 			/>
 		{/if}
 	{/each}
@@ -104,10 +102,8 @@
 				tabindex="0"
 				role="button"
 				on:mouseover|preventDefault={(event) => LineMouseOver(event, i)}
-				on:focus|preventDefault={(event) => LineMouseOver(event, i)}
 				on:mousemove|preventDefault={(event) => LineMouseMove(event)}
 				on:mouseout|preventDefault={() => LineMouseOut()}
-				on:blur|preventDefault={() => LineMouseOut()}
 			/>
 			<text
 				x={planet.displayX}
@@ -146,7 +142,7 @@
 	}
 	text {
 		font-weight: 300;
-		font-size: 0.875rem;
+		font-size: 1rem;
 		fill: var(--fg);
 	}
 	text:hover {

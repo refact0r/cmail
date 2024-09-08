@@ -5,6 +5,7 @@
 	--fg-3: hsl(50, 3%, 30%);
 	--fg-2: hsl(50, 5%, 50%);
 	--fg: hsl(50, 25%, 80%);
+	--code: hsl(50, 50%, 70%);
 	font-family: 'Dm sans', sans-serif;
 	font-weight: 400;
 }
@@ -32,10 +33,17 @@ body {
 
 .page {
 	flex: 1;
+	margin-top: 5rem;
 }
 
 code {
 	font-family: 'DM Mono', monospace;
 	background-color: var(--bg);
+	color: var(--code);
 	padding: 0.0625rem 0.25rem;
+	border-radius: 0.25rem;
+}
+
+a {
+	color: var(--fg);
 }
