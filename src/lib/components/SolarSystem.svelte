@@ -43,6 +43,9 @@
 		popupX = clientX + 10;
 		popupY = clientY + 10;
 	}
+	function LineMouseUp(i) {
+		console.log(i);
+	}
 </script>
 
 <svg viewBox="0 0 1000 1000">
@@ -60,19 +63,21 @@
 	{/each}
 	{#each calc as planet, i}
 		{#if planet.name !== $profile}
-			<line
-				x1={planet.displayX}
-				y1={planet.displayY}
-				x2={currDisplay.displayX}
-				y2={currDisplay.displayY}
-				stroke="currentColor"
-				stroke-width="10"
-				tabindex="0"
-				role="button"
+			<a
+				href="/send?to={planet.name}"
 				on:mouseover|preventDefault={(event) => LineMouseOver(event, i)}
 				on:mousemove|preventDefault={(event) => LineMouseMove(event)}
 				on:mouseout|preventDefault={() => LineMouseOut()}
-			/>
+			>
+				<line
+					x1={planet.displayX}
+					y1={planet.displayY}
+					x2={currDisplay.displayX}
+					y2={currDisplay.displayY}
+					stroke="currentColor"
+					stroke-width="10"
+				/>
+			</a>
 		{/if}
 	{/each}
 	{#each calc as planet, i}
@@ -93,18 +98,26 @@
 				{planet.name}
 			</text>
 		{:else}
-			<circle
-				class="planet"
-				cx={planet.displayX}
-				cy={planet.displayY}
-				r={scaleDiam(planet.diameter)}
-				fill={planet.color}
-				tabindex="0"
-				role="button"
+			<a
+				href="/send?to={planet.name}"
 				on:mouseover|preventDefault={(event) => LineMouseOver(event, i)}
 				on:mousemove|preventDefault={(event) => LineMouseMove(event)}
 				on:mouseout|preventDefault={() => LineMouseOut()}
-			/>
+			>
+				<circle
+					class="planet"
+					cx={planet.displayX}
+					cy={planet.displayY}
+					r={scaleDiam(planet.diameter)}
+					fill={planet.color}
+					tabindex="0"
+					role="button"
+					on:mouseover|preventDefault={(event) => LineMouseOver(event, i)}
+					on:mousemove|preventDefault={(event) => LineMouseMove(event)}
+					on:mouseout|preventDefault={() => LineMouseOut()}
+					on:mouseup|preventDefault={() => LineMouseUp(i)}
+				/>
+			</a>
 			<text
 				x={planet.displayX}
 				y={planet.displayY + scaleDiam(planet.diameter) + 18}
