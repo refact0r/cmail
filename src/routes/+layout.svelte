@@ -12,6 +12,17 @@
 	import { profile } from '$lib/stores/profile.js';
 
 	export let data;
+
+	let prevPath = '';
+
+	$: {
+		if (!data.pathname.includes('/inbox/') || !prevPath.includes('/inbox/')) {
+			if (data.pathname !== prevPath) {
+				prevPath = data.pathname;
+				console.log('pathname changed');
+			}
+		}
+	}
 </script>
 
 <div class="app">
@@ -32,19 +43,11 @@
 		</div>
 	</nav>
 	<div class="transition">
-            {#key data.pathname}
-
-                {#if !data.pathname.includes("/inbox/")}
-                    <div class="content" in:fade={{ duration: 200, delay: 200 }} out:fade={{ duration: 200 }}>
-                        <slot />
-                    </div>
-                {:else}
-                    <div class="content">
-                        <slot />
-                    </div>
-                {/if}
-
-            {/key}
+		{#key prevPath}
+			<div class="content" in:fade={{ duration: 200, delay: 200 }} out:fade={{ duration: 200 }}>
+				<slot />
+			</div>
+		{/key}
 	</div>
 </div>
 
