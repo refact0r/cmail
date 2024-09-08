@@ -5,6 +5,7 @@
     import * as constants from '$lib/js/constants.js';
 	import { afterUpdate } from 'svelte';
     import {enhance} from "$app/forms"
+	import IconSend from 'phosphor-svelte/lib/PaperPlaneRight';
 
     export let data;
 
@@ -93,7 +94,7 @@
                                 {/each}
                             </select>
                         </div>
-                        <input type="submit" value="➤" title="Send">
+                        <button type="submit"  title="Send"><IconSend /></button>
                     </div>  
                     <br>
                     <div class="group">
@@ -136,6 +137,7 @@
 		font: inherit;
 		color: inherit;
 		transition: 0.1s;
+        margin-top: 0.5rem;
 	}
 	select:hover {
 		cursor: pointer;
@@ -154,26 +156,33 @@
         background: var(--bg);
         color: var(--fg); 
         transition: .3s;
+        border-radius: 1rem;
+        border: 2px solid var(--fg-3);
+        margin-top: 1rem;
+        padding: 1rem;
     }
     textarea:hover {
         background: var(--fg);
         color: var(--bg);
     }
-    input[type="submit"] {
+    button[type="submit"] {
         color: var(--fg);
         background-color: var(--bg);
         font-size: 2rem;
-        padding: .15rem .5rem .25rem;
-        border: var(--fg) .1rem solid;
+        border: var(--fg-3) .1rem solid;
+        font-size: 1.5rem;
         text-decoration: none;
         border-radius: 4rem;
         transition: .3s;
-        height: 10%;
+        height: 3rem;
+        width: 3rem;
         margin-top: 1vh;
-        justify-content: flex-end;
         margin-left: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
-    input[type="submit"]:hover {
+    button[type="submit"]:hover {
         color: var(--bg);
         background: var(--fg);
         border: var(--bg) .1rem solid;
