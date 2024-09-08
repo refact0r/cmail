@@ -1,7 +1,7 @@
 <script>
     import { profile } from '$lib/stores/profile.js';
     import { dist, scaleDiam } from '$lib/js/planets.js';
-    import { formatAU, formatSecs } from '$lib/js/utils.js';
+    import { formatAU, formatSecs, hexToHSL, darken } from '$lib/js/utils.js';
     import * as constants from '$lib/js/constants.js';
 	import { afterUpdate } from 'svelte';
     import {enhance} from "$app/forms"
@@ -59,17 +59,44 @@
                             font-size=3.5rem
                         >Calculated Delay: {delay}</text>
 
+                        <!--Planet Start-->
                         <circle 
                             cx={300} 
                             cy={500} 
                             r={scaleDiam(data.planets[$profile].diameter)*10} 
+                            fill={darken(hexToHSL(data.planets[$profile].color)[0], hexToHSL(data.planets[$profile].color)[1], hexToHSL(data.planets[$profile].color)[2], 20)}
+                        />
+                        <circle 
+                            cx={300-scaleDiam(data.planets[$profile].diameter)/1.5} 
+                            cy={500-scaleDiam(data.planets[$profile].diameter)/1.5} 
+                            r={scaleDiam(data.planets[$profile].diameter)*8.5} 
+                            fill={darken(hexToHSL(data.planets[$profile].color)[0], hexToHSL(data.planets[$profile].color)[1], hexToHSL(data.planets[$profile].color)[2], 10)}
+                        />
+                        <circle 
+                            cx={300-scaleDiam(data.planets[$profile].diameter)*1.5} 
+                            cy={500-scaleDiam(data.planets[$profile].diameter)*1.5} 
+                            r={scaleDiam(data.planets[$profile].diameter)*6.5} 
                             fill={data.planets[$profile].color}
                         />
+
+                        <!--Planet Destination-->
                         <circle 
                             cx={1700} 
                             cy={500} 
                             r={scaleDiam(data.planets[destination].diameter)*10} 
-                            fill={data.planets[destination].color} 
+                            fill={darken(hexToHSL(data.planets[destination].color)[0], hexToHSL(data.planets[destination].color)[1], hexToHSL(data.planets[destination].color)[2], 20)}
+                        />
+                        <circle 
+                            cx={1700-scaleDiam(data.planets[destination].diameter)/1.5} 
+                            cy={500-scaleDiam(data.planets[destination].diameter)/1.5} 
+                            r={scaleDiam(data.planets[destination].diameter)*8.5} 
+                            fill={darken(hexToHSL(data.planets[destination].color)[0], hexToHSL(data.planets[destination].color)[1], hexToHSL(data.planets[destination].color)[2], 10)}
+                        />
+                        <circle 
+                            cx={1700-scaleDiam(data.planets[destination].diameter)*1.5} 
+                            cy={500-scaleDiam(data.planets[destination].diameter)*1.5} 
+                            r={scaleDiam(data.planets[destination].diameter)*6.5} 
+                            fill={data.planets[destination].color}
                         />
                         
                     </svg>
