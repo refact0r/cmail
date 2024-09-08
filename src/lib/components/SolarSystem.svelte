@@ -1,9 +1,18 @@
 <script>
-	import { coords, dist, sunDist, scaleDiam, scaleDist, convertPlanet } from '$lib/js/planets.js';
+	import {
+		coords,
+		dist,
+		sunDist,
+		scaleDiam,
+		scaleDist,
+		convertPlanet,
+		msgCoord
+	} from '$lib/js/planets.js';
 	import { formatAU, formatSecs } from '$lib/js/utils.js';
 	import * as constants from '$lib/js/constants.js';
 	import { profile } from '$lib/stores/profile.js';
 	import { formatCSVDate, formatDate } from '$lib/js/utils.js';
+	import { onMount } from 'svelte';
 
 	export let data;
 
@@ -18,9 +27,21 @@
 		.map((planet) => {
 			planet = convertPlanet(planet, date);
 			const currDist = dist(convertPlanet(data.planets[$profile], date), planet);
+			let messages = [];
+			for (const message of data.messages) {
+				if (
+					message.from === $profile &&
+					message.to === planet.name &&
+					new Date(message.arrives_at) > new Date(date)
+				) {
+					messages.push(message);
+				}
+			}
+			console.log(messages);
 			return {
 				...planet,
 				...coords(planet),
+				messages,
 				currDist,
 				currTime: (currDist / constants.c) * 1000,
 				sunDist: sunDist(planet)
@@ -132,6 +153,15 @@
 			>
 				{planet.name}
 			</text>
+			{#each planet.messages as message}
+				<circle
+					fill="#999"
+					class="message"
+					cx={msgCoord(message, planet, currDisplay).displayX}
+					cy={msgCoord(message, planet, currDisplay).displayY}
+					r={6}
+				/>
+			{/each}
 		{/if}
 	{/each}
 </svg>
@@ -233,7 +263,7 @@
 		-webkit-appearance: none;
 		width: 100%;
 		height: 0.25rem;
-		background: var(--bg-2);
+		background: var(--bg-3);
 		outline: none;
 		-webkit-transition: 0.2s;
 		border-radius: 1rem;
@@ -266,5 +296,8 @@
 	.slider::-moz-range-thumb:hover {
 		background: var(--bg-5);
 		border-color: var(--fg-3);
+	}
+	.message {
+		color: var(--fg-2);
 	}
 </style>
