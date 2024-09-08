@@ -73,7 +73,7 @@
 		transition: 0.3s;
 	}
 	.brand:hover {
-		font-weight: bold;
+		color: white;
 	}
 	.items {
 		display: flex;
@@ -94,7 +94,7 @@
 	.selector {
 		margin-top: 2vh;
 	}
-	select {
+	#server {
 		border-radius: 0.2rem;
 		outline: none;
 		font-family: 'Orbitron', sans-serif;
@@ -103,7 +103,7 @@
 		width: 8vw;
 		transition: 0.3s;
 	}
-	select:hover {
+	#server:hover {
 		background-color: var(--fg);
 		color: var(--bg);
 	}
