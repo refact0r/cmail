@@ -56,10 +56,10 @@ export function msgCoord(message, planet, currDisplay) {
 	// distance traveled: total distance * fraction of message traveled
 	const dist = totalDist * frac;
 	const rad = Math.atan2(
-		currDisplay.displayY - planet.displayY,
-		currDisplay.displayX - planet.displayX
+		planet.displayY - currDisplay.displayY,
+		planet.displayX - currDisplay.displayX
 	);
-	const x = planet.displayX + dist * Math.cos(rad);
-	const y = planet.displayY + dist * Math.sin(rad);
+	const x = currDisplay.displayX + dist * Math.cos(rad);
+	const y = currDisplay.displayY + dist * Math.sin(rad);
 	return { displayX: x, displayY: y };
 }
