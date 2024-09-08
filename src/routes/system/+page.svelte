@@ -1,6 +1,18 @@
 <script>
 	import planetData from '$lib/data/planetData.js';
 
+	const curr = 6;
+	const currCoords = getCoords(planetData[curr]);
+	const originX = currCoords.x;
+	const originY = currCoords.y;
+
+	$: calculated = planetData.map((planet) => {
+		return {
+			...planet,
+			...getCoords(planet)
+		};
+	});
+
 	function scaleDiameter(diameter) {
 		const ratio = diameter / 4879;
 		const log = Math.log2(ratio + 4);
@@ -26,9 +38,9 @@
 
 <svg viewBox="0 0 1000 1000">
 	<circle cx={500} cy={500} r={20} fill="#ffec4c" />
-	{#each planetData as planet, i}
-		{@const { x, y } = getCoords(planet, i)}
+	{#each calculated as planet}
 		<circle
+			class="orbit"
 			cx={500}
 			cy={500}
 			r={scaleDistance(planet.distance)}
@@ -36,7 +48,35 @@
 			stroke-width="2"
 			fill="none"
 		/>
-		<circle cx={x} cy={y} r={scaleDiameter(planet.diameter)} fill={planet.color} />
+	{/each}
+	{#each calculated as planet, i}
+		{#if i !== curr}
+			<line
+				x1={planet.x}
+				y1={planet.y}
+				x2={originX}
+				y2={originY}
+				stroke="currentColor"
+				stroke-width="6"
+			/>
+		{/if}
+	{/each}
+	{#each calculated as planet}
+		<circle
+			class="planet"
+			cx={planet.x}
+			cy={planet.y}
+			r={scaleDiameter(planet.diameter)}
+			fill={planet.color}
+		/>
+		<text
+			x={planet.x}
+			y={planet.y + scaleDiameter(planet.diameter) + 20}
+			text-anchor="middle"
+			fill="white"
+		>
+			{planet.name}
+		</text>
 	{/each}
 </svg>
 
@@ -45,7 +85,20 @@
 		width: 100%;
 		height: 100%;
 	}
-	circle {
-		color: var(--bg-3);
+	.orbit {
+		color: var(--bg-2);
+		z-index: -1;
+	}
+	text {
+		font-weight: 300;
+		font-size: 0.75rem;
+	}
+	line {
+		color: color-mix(in srgb, var(--fg), transparent 80%);
+		transition: color 0.1s;
+	}
+	line:hover {
+		cursor: pointer;
+		color: color-mix(in srgb, var(--fg), transparent 50%);
 	}
 </style>
