@@ -2,9 +2,10 @@
 	import '../app.css';
 	import { fade } from 'svelte/transition';
 	import IconSS from "phosphor-svelte/lib/ShootingStar";
-	import IconMail from "phosphor-svelte/lib/EnvelopeSimpleOpen"
-	import IconSend from "phosphor-svelte/lib/PaperPlaneTilt"
-	import IconAbout from "phosphor-svelte/lib/Question"
+	import IconMail from "phosphor-svelte/lib/EnvelopeSimpleOpen";
+	import IconSend from "phosphor-svelte/lib/PaperPlaneTilt";
+	import IconAbout from "phosphor-svelte/lib/Question";
+	import { profile } from '$lib/stores/profile.js';
 
 	export let data;
 
@@ -20,7 +21,7 @@
 				<div class="items">
 					<div class="selector">
 						<label for="server">Profile: </label>
-						<select name="server" id="server" title="Select planet" value="earth">
+						<select name="server" id="server" title="Select planet" bind:value={$profile}>
 							<option value="mercury" title="Mercury">Mercury</option>
 							<option value="venus" title="Venus">Venus</option>
 							<option value="earth" title="Earth">Earth</option>
