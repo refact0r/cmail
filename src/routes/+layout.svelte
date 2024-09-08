@@ -26,9 +26,9 @@
 					<option value={planet}>{planet}</option>
 				{/each}
 			</select>
-			<a class="item" href="/test/inbox" title="Inbox"><IconMail /></a>
+			<a class="item" href="/inbox" title="Inbox"><IconMail /></a>
 			<a class="item" href="/test/send" title="Send messages"><IconSend /></a>
-			<a class="item" href="/test/about" title="About"><IconAbout /></a>
+			<a class="item" href="/about" title="About"><IconAbout /></a>
 		</div>
 	</nav>
 	<div class="transition">
@@ -73,6 +73,7 @@
 		/* font-family: 'DM Mono', monospace; */
 		font-weight: 500;
 		margin: 0;
+		height: auto;
 	}
 	.title:hover {
 		background-color: var(--bg-2);

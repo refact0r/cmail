@@ -3,32 +3,22 @@
 	import { formatDate, formatTime } from '$lib/js/utils.js';
 	import { profile } from '$lib/stores/profile.js';
 	import { messagesRead } from '$lib/stores/messagesRead.js';
+	import { filterMessages } from '$lib/js/messages.js';
 
 	export let data;
 
-	$: newMessages = data.messages
-		.filter((message) => message.to === $profile)
-		.filter((message) => !$messagesRead.includes(message.id))
+	$: messages = filterMessages(data.messages, $profile, $messagesRead);
+
+	$: outgoingMessages = data.messages
+		.filter((message) => message.from === $profile)
+		.filter((message) => new Date(message.arrives_at) > new Date())
 		.sort((a, b) => b.created_at - a.created_at)
 		.splice(0, 6)
 		.map((message) => {
 			return {
-				...message,
-				read: false
+				...message
 			};
 		});
-	$: oldMessages = data.messages
-		.filter((message) => message.to !== $profile)
-		.filter((message) => $messagesRead.includes(message.id))
-		.sort((a, b) => b.created_at - a.created_at)
-		.splice(0, 6 - newMessages.length)
-		.map((message) => {
-			return {
-				...message,
-				read: true
-			};
-		});
-	$: messages = [...newMessages, ...oldMessages];
 </script>
 
 <div class="page">
@@ -36,8 +26,8 @@
 		<div class="new box">
 			<h2>New</h2>
 			<div class="messages">
-				{#each newMessages as message}
-					<a class="message" href="/inbox/{message.id}">
+				{#each messages as message}
+					<a class="message box2" href="/inbox/{message.id}">
 						<div class="content-container">
 							<p class="content">{message.content}</p>
 							<div class="new">•</div>
@@ -60,6 +50,22 @@
 	<div class="side">
 		<div class="outgoing box">
 			<h2>Outgoing</h2>
+			<div class="messages">
+				{#each outgoingMessages as message}
+					<a class="message box2" href="/inbox/{message.id}">
+						<div class="content-container">
+							<p class="content">{message.content}</p>
+						</div>
+						<p class="details">
+							<span class="to">{message.to}</span>
+							<span class="separator">•</span>
+							<span class="date">{formatDate(message.arrives_at)}</span>
+							<span class="separator">•</span>
+							<span class="time">{formatTime(message.arrives_at)}</span>
+						</p>
+					</a>
+				{/each}
+			</div>
 		</div>
 	</div>
 </div>
@@ -75,11 +81,7 @@
 		align-items: center;
 		padding: 2rem;
 	}
-	.box {
-		background: var(--bg-2);
-		border-radius: 1rem;
-		border: 2px solid var(--bg-3);
-		padding: 1rem;
+	.side .box {
 		width: 100%;
 	}
 	.box h2 {
@@ -95,10 +97,6 @@
 		gap: 0.5rem;
 	}
 	.message {
-		background-color: var(--bg-3);
-		border-radius: 0.75rem;
-		padding: 0.75rem;
-		border: 2px solid var(--bg-4);
 		display: flex;
 		flex-direction: column;
 		gap: 0.25rem;
