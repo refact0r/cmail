@@ -30,7 +30,9 @@
 					<a class="message box2" href="/inbox/{message.id}">
 						<div class="content-container">
 							<p class="content">{message.content}</p>
-							<div class="new">•</div>
+							{#if !$messagesRead.includes(String(message.id))}
+								<div class="new">•</div>
+							{/if}
 						</div>
 						<p class="details">
 							<span class="from">{message.from}</span>
