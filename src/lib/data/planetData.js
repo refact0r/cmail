@@ -1,6 +1,6 @@
 export default [
 	{
-		name: 'Pluto',
+		name: 'pluto',
 		diameter: 2376,
 		period: 90560,
 		distance: 5906.4,
@@ -8,7 +8,7 @@ export default [
 		color: '#b4aa9a'
 	},
 	{
-		name: 'Neptune',
+		name: 'neptune',
 		diameter: 49528,
 		period: 59800,
 		distance: 4515.0,
@@ -16,7 +16,7 @@ export default [
 		color: '#6a88bb'
 	},
 	{
-		name: 'Uranus',
+		name: 'uranus',
 		diameter: 51118,
 		period: 30589.0,
 		distance: 2867.0,
@@ -24,7 +24,7 @@ export default [
 		color: '#85bdbe'
 	},
 	{
-		name: 'Saturn',
+		name: 'saturn',
 		diameter: 120536,
 		period: 10747.0,
 		distance: 1432.0,
@@ -32,7 +32,7 @@ export default [
 		color: '#eac580'
 	},
 	{
-		name: 'Jupiter',
+		name: 'jupiter',
 		diameter: 142984,
 		period: 4332.0,
 		distance: 778.5,
@@ -40,7 +40,7 @@ export default [
 		color: '#bb9b87'
 	},
 	{
-		name: 'Mars',
+		name: 'mars',
 		diameter: 6792,
 		period: 687.0,
 		distance: 227.9,
@@ -48,7 +48,7 @@ export default [
 		color: '#f27b5f'
 	},
 	{
-		name: 'Earth',
+		name: 'earth',
 		diameter: 12756,
 		period: 365.2,
 		distance: 149.6,
@@ -56,7 +56,7 @@ export default [
 		color: '#5e98b2'
 	},
 	{
-		name: 'Venus',
+		name: 'venus',
 		diameter: 12104,
 		period: 224.7,
 		distance: 108.2,
@@ -64,7 +64,7 @@ export default [
 		color: '#d79a4c'
 	},
 	{
-		name: 'Mercury',
+		name: 'mercury',
 		diameter: 4879,
 		period: 88.0,
 		distance: 57.9,

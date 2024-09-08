@@ -1,9 +1,9 @@
 :root {
 	--bg: hsl(0, 0%, 5%);
-	--bg-2: hsl(0, 0%, 10%);
-	--fg-3: hsl(50, 2%, 30%);
-	--fg-2: hsl(50, 5%, 50%);
-	--fg: hsl(50, 25%, 80%);
+	--bg-2: hsl(0, 0%, 12%);
+	--fg-3: hsl(50, 0%, 30%);
+	--fg-2: hsl(50, 0%, 50%);
+	--fg: hsl(50, 0%, 80%);
 	font-family: 'Dm Sans', sans-serif;
 	font-weight: 400;
 }

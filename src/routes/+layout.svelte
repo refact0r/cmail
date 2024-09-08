@@ -45,7 +45,6 @@
 
 	.main {
 		height: 100%;
-		min-height: 100vh;
 		flex-grow: 1;
 		display: flex;
 		flex-direction: column;
