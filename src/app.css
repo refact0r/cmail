@@ -1,4 +1,11 @@
+:root {
+	--bg: hsl(0, 0%, 5%);
+	--bg-2: hsl(0, 0%, 10%);
+	--bg-3: hsl(0, 0%, 15%);
+	--fg: hsl(50, 20%, 80%);
+}
+
 body {
-    background-color: black;
-    color: white;
+	background: var(--bg);
+	color: var(--fg);
 }
