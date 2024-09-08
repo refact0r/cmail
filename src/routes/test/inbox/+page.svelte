@@ -18,7 +18,7 @@
             </div>
         {:else}
             <div class="message">
-                <p><b>[ To: Mars | 02:53 AM | 09/08/2025 ]</b><!--{Message Content}--> What's up Martians!</p>
+                <p><b>[ To: Mars | 02:53 AM | 09/08/2025 | ETA 12min ]</b><!--{Message Content}--> What's up Martians!</p>
             </div>
         {/if}
     </div>
