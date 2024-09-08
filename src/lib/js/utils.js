@@ -23,12 +23,12 @@ export function formatCSVDate(date) {
 	return `${year}-${month}-${day}`;
 }
 
-export function formatDate(datetime) {
+export function formatDate(datetime, type = 'numeric') {
 	const d = new Date(datetime);
 	const date = d.toLocaleString('default', {
 		year: 'numeric',
-		month: 'numeric',
-		day: 'numeric'
+		month: type,
+		day: type
 	});
 
 	return date;
@@ -47,41 +47,38 @@ export function formatTime(datetime) {
 }
 
 export function outgoingProgressIndicator(created_at, arrives_at) {
-    return  (new Date() - new Date(created_at))/(new Date(arrives_at) - new Date(created_at));
+	return (new Date() - new Date(created_at)) / (new Date(arrives_at) - new Date(created_at));
 }
 
 export function hexToHSL(H) {
-	let r = 0, g = 0, b = 0;
+	let r = 0,
+		g = 0,
+		b = 0;
 	if (H.length == 7) {
-	  	r =  parseInt(H.substring(1, 3), 16);
-	  	g = parseInt(H.substring(3, 5), 16);
-	  	b = parseInt(H.substring(5, 7), 16);
+		r = parseInt(H.substring(1, 3), 16);
+		g = parseInt(H.substring(3, 5), 16);
+		b = parseInt(H.substring(5, 7), 16);
 	}
 	// Then to HSL
 	r /= 255;
 	g /= 255;
 	b /= 255;
-	let cmin = Math.min(r,g,b),
-		cmax = Math.max(r,g,b),
+	let cmin = Math.min(r, g, b),
+		cmax = Math.max(r, g, b),
 		delta = cmax - cmin,
 		h = 0,
 		s = 0,
 		l = 0;
-  
-	if (delta == 0)
-	  	h = 0;
-	else if (cmax == r)
-	  	h = ((g - b) / delta) % 6;
-	else if (cmax == g)
-	  	h = (b - r) / delta + 2;
-	else
-	  	h = (r - g) / delta + 4;
-  
+
+	if (delta == 0) h = 0;
+	else if (cmax == r) h = ((g - b) / delta) % 6;
+	else if (cmax == g) h = (b - r) / delta + 2;
+	else h = (r - g) / delta + 4;
+
 	h = Math.round(h * 60);
-  
-	if (h < 0)
-	  	h += 360;
-  
+
+	if (h < 0) h += 360;
+
 	l = (cmax + cmin) / 2;
 	s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
 	s = +(s * 100).toFixed(1);
@@ -91,6 +88,6 @@ export function hexToHSL(H) {
 }
 
 export function darken(h, s, l, amt) {
-	console.log(h + ", " + s + ", " + (l-amt))
-	return "hsl(" + h + ", " + s + "%, " + (l-amt) + "%)"
+	console.log(h + ', ' + s + ', ' + (l - amt));
+	return 'hsl(' + h + ', ' + s + '%, ' + (l - amt) + '%)';
 }

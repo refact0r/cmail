@@ -3,16 +3,33 @@
 	import { formatAU, formatSecs } from '$lib/js/utils.js';
 	import * as constants from '$lib/js/constants.js';
 	import { profile } from '$lib/stores/profile.js';
+	import { formatCSVDate, formatDate } from '$lib/js/utils.js';
 
 	export let data;
 
-	$: console.log(data);
+	let days = Math.floor((new Date() - new Date(2020, 0, 1)) / (1000 * 60 * 60 * 24));
 
-	$: currDisplay = coords(data.planets[$profile]);
+	$: date = new Date(new Date(2020, 0, 1).setDate(new Date(2020, 0, 1).getDate() + days));
+
+	$: console.log(date);
+	$: console.log(days);
+
+	function convertPlanet(planet, date) {
+		let hor = {};
+		const today = formatCSVDate(date);
+		for (const row of planet.full) {
+			if (row.calendar.includes(today)) {
+				hor = row;
+				break;
+			}
+		}
+		return { ...planet, ...hor };
+	}
 
 	$: calc = Object.values(data.planets)
 		.map((planet) => {
-			const currDist = dist(data.planets[$profile], data.planets[planet.name]);
+			planet = convertPlanet(planet, date);
+			const currDist = dist(convertPlanet(data.planets[$profile], date), planet);
 			return {
 				...planet,
 				...coords(planet),
@@ -22,6 +39,8 @@
 			};
 		})
 		.sort((a, b) => a.index - b.index);
+
+	$: currDisplay = coords(calc.find((planet) => planet.name === $profile));
 
 	let popupIndex = 0;
 	let popupVisible = false;
@@ -128,6 +147,16 @@
 		{/if}
 	{/each}
 </svg>
+<div class="slidecontainer">
+	<div><code>{formatDate(date, '2-digit')}</code></div>
+	<input type="range" min="1" max="3653" bind:value={days} class="slider" id="myRange" />
+	<button
+		class="button"
+		on:click={() =>
+			(days = Math.floor((new Date() - new Date(2020, 0, 1)) / (1000 * 60 * 60 * 24)))}
+		>reset</button
+	>
+</div>
 
 {#if popupVisible}
 	<div class="popup" style="left: {popupX}px; top: {popupY}px;">
@@ -186,5 +215,59 @@
 	.popup h3,
 	.popup p {
 		margin: 0;
+	}
+	.slidecontainer {
+		display: flex;
+		gap: 0.5rem;
+		align-items: center;
+	}
+	.slidecontainer input {
+		width: 100%;
+	}
+	.slidecontainer button {
+		border: 2px solid var(--bg-2);
+		padding: 0.5rem 1rem;
+		border-radius: 1rem;
+		background-color: var(--bg);
+		font: inherit;
+		color: inherit;
+	}
+	.slidecontainer button:hover {
+		cursor: pointer;
+		background-color: var(--bg-2);
+		border-color: var(--bg-3);
+	}
+	.slidecontainer {
+		width: 100%;
+	}
+
+	.slider {
+		-webkit-appearance: none;
+		width: 100%;
+		height: 0.25rem;
+		background: var(--bg-2);
+		outline: none;
+		-webkit-transition: 0.2s;
+		border-radius: 1rem;
+	}
+
+	.slider::-webkit-slider-thumb {
+		-webkit-appearance: none;
+		appearance: none;
+		width: 1rem;
+		height: 1rem;
+		background: var(--bg-3);
+		border: 2px solid var(--bg-4);
+		cursor: pointer;
+		border-radius: 1rem;
+	}
+
+	.slider::-moz-range-thumb {
+		width: 1rem;
+		height: 1rem;
+		background: var(--bg-4);
+		border: 2px solid var(--bg-5);
+		cursor: pointer;
+		border-radius: 1rem;
 	}
 </style>
