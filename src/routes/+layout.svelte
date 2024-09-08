@@ -11,10 +11,13 @@
 	import IconAbout from 'phosphor-svelte/lib/Question';
 	import { profile } from '$lib/stores/profile.js';
 
+	import { SvelteToast } from '@zerodevx/svelte-toast';
+
 	export let data;
 </script>
 
 <div class="app">
+	<SvelteToast />
 	<nav>
 		<a class="title" href="/">
 			<IconSparkle style="font-size: 1.5rem;" />
@@ -32,19 +35,17 @@
 		</div>
 	</nav>
 	<div class="transition">
-            {#key data.pathname}
-
-                {#if !data.pathname.includes("/inbox/")}
-                    <div class="content" in:fade={{ duration: 200, delay: 200 }} out:fade={{ duration: 200 }}>
-                        <slot />
-                    </div>
-                {:else}
-                    <div class="content">
-                        <slot />
-                    </div>
-                {/if}
-
-            {/key}
+		{#key data.pathname}
+			{#if !data.pathname.includes('/inbox/')}
+				<div class="content" in:fade={{ duration: 200, delay: 200 }} out:fade={{ duration: 200 }}>
+					<slot />
+				</div>
+			{:else}
+				<div class="content">
+					<slot />
+				</div>
+			{/if}
+		{/key}
 	</div>
 </div>
 
@@ -133,5 +134,15 @@
 	.item:hover {
 		background-color: var(--bg-2);
 		border-color: var(--bg-3);
+	}
+
+	:root {
+		--toastContainerTop: auto;
+		--toastContainerBottom: 1.5rem;
+		--toastBorderRadius: 1rem;
+		--toastBackground: var(--bg-2);
+		--toastBorder: 2px solid var(--bg-5);
+		--toastBarHeight: 2px;
+		--toastBarBackground: var(--fg-3);
 	}
 </style>
