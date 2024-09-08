@@ -4,6 +4,7 @@
 	import { profile } from '$lib/stores/profile.js';
 	import { messagesRead } from '$lib/stores/messagesRead.js';
 	import { filterMessages } from '$lib/js/messages.js';
+    import planetData from '$lib/data/planetData.js';
 
 	export let data;
 
@@ -58,9 +59,9 @@
 						<div class="content-container">
 							<p class="content">{message.content}</p>
 						</div>
-						<div class="new">
-							{outgoingProgressIndicator(message.created_at, message.arrives_at)}
-						</div>
+                        <div class="progress-bar" style="--progress: {outgoingProgressIndicator(message.created_at, message.arrives_at)*100}%">
+                            <div class="progress-bar-filled" style="background-color: {planetData.find(obj => obj.name === message.to).color};"></div>
+                        </div>
 						<p class="details">
 							<span class="to">{message.to}</span>
 							<span class="separator">•</span>
@@ -101,4 +102,16 @@
 		flex-direction: column;
 		gap: 0.5rem;
 	}
+    .progress-bar {
+        width: 300px;
+        height: 5px;
+        background-color: #e0e0e0;
+        border-radius: 5px;
+        overflow: hidden;
+    }
+
+    .progress-bar-filled {
+        height: 100%;
+        width: var(--progress);
+    }
 </style>
