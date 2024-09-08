@@ -1,38 +1,45 @@
 <script>
 	import '../app.css';
 	import { fade } from 'svelte/transition';
+	import IconSS from "phosphor-svelte/lib/ShootingStar";
+	import IconMail from "phosphor-svelte/lib/EnvelopeSimpleOpen"
+	import IconSend from "phosphor-svelte/lib/PaperPlaneTilt"
+	import IconAbout from "phosphor-svelte/lib/Question"
 
 	export let data;
 </script>
 
-<!--<svelte:head>
-	<meta name="color-scheme" content={theme} />
-	<link rel="stylesheet" href={`/theme/${theme}.css`} />
-</svelte:head>-->
-
 <div class="app">
-	<div class="logo">
-		<h1>Placeholder</h1>
-	</div>
-	<div class="navbar">
-		<a class="selected" href="/test">‎ Home ‎</a>
-		<a href="/test/inbox">‎ Inbox ‎</a>
-		<a href="/test/send">‎ Send ‎</a>
-		<a href="/test/about">‎ About ‎</a>
-	</div>
-	<div class="box">
-		<div class="server-select">
-			<label for="server">Profile: </label>
-			<select name="server" id="server">
-				<option value="earth">Earth</option>
-				<option value="moon">Moon</option>
-				<option value="mars">Mars</option>
-			</select>
-		</div>
-	</div>
 	{#key data.pathname}
-		<div class="main" in:fade={{ duration: 100, delay: 50 }} out:fade={{ duration: 100 }}>
-			<slot />
+		<div class="main">
+			<div class="navbar">
+				<div class="title">
+					<a class="brand" href="/test" title="starbound">starbound <IconSS /></a>
+				</div>
+				<div class="items">
+					<div class="selector">
+						<label for="server">Profile: </label>
+						<select name="server" id="server" title="Select planet" >
+							<option value="earth" title="Earth">Earth</option>
+							<option value="moon" title="Moon">Moon</option>
+							<option value="mars" title="Mars">Mars</option>
+							<option value="mercury" title="Mercury">Mercury</option>
+							<option value="venus" title="Venus">Venus</option>
+							<option value="jupiter" title="Jupiter">Jupiter</option>
+							<option value="saturn" title="Saturn">Saturn</option>
+							<option value="uranus" title="Uranus">Uranus</option>
+							<option value="neptune" title="Neptune">Neptune</option>
+							<option value="pluto" title="Pluto">Pluto</option>
+						</select>
+					</div>
+					<a class="item" href="/test/inbox" title="Inbox"><IconMail /></a>
+					<a class="item" href="/test/send" title="Send messages"><IconSend /></a>
+					<a class="item" href="/test/about" title="About"><IconAbout /></a>
+				</div>
+			</div>
+			<div class="content" in:fade={{ duration: 200, delay: 200 }} out:fade={{ duration: 200 }}>
+				<slot />
+			</div>
 		</div>
 	{/key}
 </div>
@@ -49,27 +56,63 @@
 		flex-grow: 1;
 		display: flex;
 		flex-direction: column;
-		padding: 1.5rem 0;
+		padding: 0 0 1.5rem 0;
 	}
 
-	.logo {
-		text-align: center;
+    a {
+        color: white;
+        text-decoration: none;
+    }
+	
+    .navbar{
+		display: flex;
+		gap: 3rem;
+		justify-content: space-between;
+		align-items: start;
+		padding: 1rem 2rem 0rem;
+        font-family: 'Orbitron', sans-serif;
+    }
+	.brand {
+		font-size: 2rem;
+		transition: .3s;
 	}
-	a {
-		color: white;
-		text-decoration: none;
+	.brand:hover{
+		font-weight: bold;
 	}
-	.navbar {
-		text-align: center;
+	.items{
+		display: flex;
+		gap: 2rem;
 	}
-	.selected {
+	.item{
+		font-size: 2rem;
+		padding: .5rem .5rem 0rem;
+		border-radius: 4rem;
+		justify-content: center;
+		align-items: center;
+		transition: .3s;
+	}
+	.item:hover{
 		color: black;
 		background-color: white;
 	}
-	.server-select {
-		text-align: center;
+	.selector{
+        margin-top: 2vh;
+    }
+	select{
+		border-radius: .2rem;
+		outline: none;
+		font-family: 'Orbitron', sans-serif;
+		background-color: black;
+		color: white;
+		width: 8vw;
+		transition: .3s;
 	}
-	.box {
-		padding-top: 1rem;
+	select:hover{
+		background-color: white;
+		color: black;
+	}
+
+	.content{
+		padding: 1rem 2rem 0rem;
 	}
 </style>
