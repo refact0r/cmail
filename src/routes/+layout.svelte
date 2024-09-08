@@ -41,7 +41,7 @@
 				{/each}
 			</select>
 			<a class="item" href="/inbox" title="Inbox"><IconMail /></a>
-			<a class="item" href="/test/send" title="Send messages"><IconSend /></a>
+			<a class="item" href="/send" title="Send messages"><IconSend /></a>
 			<a class="item" href="/about" title="About"><IconAbout /></a>
 		</div>
 	</nav>
