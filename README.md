@@ -22,7 +22,7 @@ Additionally, our web app has data of current and future planet positions and di
 
 ## Resources used
 
-Our main framework was [`SvelteKit`](https://kit.svelte.dev/docs/introduction), a web UI framework designed to streamline the coding process of web development. We used svelte, css, and javascript as our main languages. To store messages, we used [`Supabase`](https://supabase.com/), an open-source version of the popular database Firebase. We retrieved our planetary data from [`NASA JPL Horizons API`](https://ssd.jpl.nasa.gov/horizons/#api). No AI was used.
+Our main framework was [`SvelteKit`](https://kit.svelte.dev/docs/introduction), a web UI framework designed to streamline the coding process of web development. We used Svelte, CSS, and Javascript as our main languages. To store messages, we used [`Supabase`](https://supabase.com/), an open-source version of the popular database Firebase. We retrieved our planetary data from [`NASA JPL Horizons API`](https://ssd.jpl.nasa.gov/horizons/#api). No AI was used.
 
 ## Developers
 
