@@ -77,10 +77,9 @@
 		margin-top: 0rem;
 	}
 	.side {
-		width: 27%;
+		width: 25%;
 		display: flex;
 		align-items: center;
-		padding: 2rem;
 	}
 	.side .box {
 		width: 100%;
@@ -89,45 +88,13 @@
 		margin: 0 0 1rem 0;
 	}
 	.system {
-		width: 46%;
+		width: 50%;
 		display: flex;
+		padding: 0 2rem;
 	}
 	.messages {
 		display: flex;
 		flex-direction: column;
 		gap: 0.5rem;
-	}
-	.message {
-		display: flex;
-		flex-direction: column;
-		gap: 0.25rem;
-		text-decoration: none;
-		transition: 0.1s;
-	}
-	.message:hover {
-		background-color: var(--bg-4);
-		border-color: var(--bg-5);
-	}
-	.message p {
-		margin: 0;
-	}
-	.new {
-		color: var(--fg-0);
-	}
-	.content {
-		color: var(--fg);
-		display: -webkit-box;
-		text-overflow: ellipsis;
-		overflow: hidden;
-		-webkit-line-clamp: 1;
-		-webkit-box-orient: vertical;
-	}
-	.content-container {
-		display: flex;
-		justify-content: space-between;
-	}
-	.details {
-		color: var(--fg-3);
-		font-size: 0.875rem;
 	}
 </style>
