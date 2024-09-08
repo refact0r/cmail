@@ -32,11 +32,13 @@
 		</div>
 	</nav>
 	<div class="transition">
-		{#key data.pathname}
-			<div class="content" in:fade={{ duration: 200, delay: 200 }} out:fade={{ duration: 200 }}>
-				<slot />
-			</div>
-		{/key}
+        {#if !data.pathname.includes("/inbox/")}
+            {#key data.pathname}
+                <div class="content" in:fade={{ duration: 200, delay: 200 }} out:fade={{ duration: 200 }}>
+                    <slot />
+                </div>
+            {/key}
+        {/if}
 	</div>
 </div>
 
