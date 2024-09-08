@@ -45,3 +45,7 @@ export function formatTime(datetime) {
 
 	return time;
 }
+
+export function outgoingProgressIndicator(created_at, arrives_at) {
+    return  (new Date() - new Date(created_at))/(new Date(arrives_at) - new Date(created_at));
+}

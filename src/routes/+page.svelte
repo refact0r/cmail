@@ -1,6 +1,6 @@
 <script>
 	import SolarSystem from '$lib/components/SolarSystem.svelte';
-	import { formatDate, formatTime } from '$lib/js/utils.js';
+	import { formatDate, formatTime, outgoingProgressIndicator } from '$lib/js/utils.js';
 	import { profile } from '$lib/stores/profile.js';
 	import { messagesRead } from '$lib/stores/messagesRead.js';
 	import { filterMessages } from '$lib/js/messages.js';
@@ -56,6 +56,7 @@
 						<div class="content-container">
 							<p class="content">{message.content}</p>
 						</div>
+                        <div class="new">{outgoingProgressIndicator(message.created_at, message.arrives_at)}</div>
 						<p class="details">
 							<span class="to">{message.to}</span>
 							<span class="separator">•</span>
