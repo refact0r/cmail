@@ -2,7 +2,7 @@
 	export let data;
 </script>
 
-<div class="message"></div>
+<div class="container box"></div>
 
 <style>
 </style>

@@ -36,6 +36,7 @@ body {
 
 .page {
 	flex: 1;
+	padding: 0 2rem 2rem 2rem;
 }
 
 code {
@@ -74,4 +75,39 @@ h1 {
 	border-radius: 0.75rem;
 	border: 2px solid var(--bg-4);
 	padding: 0.75rem;
+}
+
+.message {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+	text-decoration: none;
+	transition: 0.1s;
+}
+.message:hover {
+	background-color: var(--bg-4);
+	border-color: var(--bg-5);
+}
+.message p {
+	margin: 0;
+}
+.message .new {
+	color: var(--fg-0);
+	margin-left: 0.5rem;
+}
+.message .content {
+	color: var(--fg);
+	display: -webkit-box;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+}
+.message .content-container {
+	display: flex;
+	justify-content: space-between;
+}
+.message .details {
+	color: var(--fg-3);
+	font-size: 0.875rem;
 }
