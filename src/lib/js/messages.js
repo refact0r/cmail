@@ -1,17 +1,7 @@
-export function filterMessages(messages, profile, messagesRead, n = 0) {
-	let newMessages = messages
+export function filterMessages(messages, profile, messagesRead, n = null) {
+	return messages
 		.filter((message) => message.to === profile)
-		.filter((message) => !messagesRead.includes(message.id))
 		.filter((message) => new Date(message.arrives_at) < new Date())
-		.sort((a, b) => b.created_at - a.created_at);
-	let oldMessages = messages
-		.filter((message) => message.to !== profile)
-		.filter((message) => messagesRead.includes(message.id))
-		.filter((message) => new Date(message.arrives_at) < new Date())
-		.sort((a, b) => b.created_at - a.created_at);
-	if (n > 0) {
-		newMessages = newMessages.splice(0, n);
-		oldMessages = oldMessages.splice(0, n - newMessages.length);
-	}
-	return [...newMessages, ...oldMessages];
+		.sort((a, b) => b.created_at - a.created_at)
+		.splice(0, n ?? 10000);
 }

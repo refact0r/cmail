@@ -1,7 +1,6 @@
 import { loadCSV } from '$lib/js/loadCSV.js';
 import planetData from '$lib/data/planetData.js';
 import { dev } from '$app/environment';
-import { formatCSVDate } from '$lib/js/utils.js';
 import { supabase } from '$lib/js/supabaseClient';
 
 let csvData = null;
@@ -13,23 +12,12 @@ export async function handle({ event, resolve }) {
 		console.log('CSV files loaded.');
 	}
 
-	let horizons = {};
-	for (const [key, value] of Object.entries(csvData)) {
-		const today = formatCSVDate(new Date());
-		for (const row of value) {
-			if (row.calendar.includes(today)) {
-				horizons[key] = row;
-				break;
-			}
-		}
-	}
-
 	let finalData = {};
 	for (const [index, planet] of planetData.entries()) {
 		finalData[planet.name] = {
 			index,
 			...planet,
-			...horizons[planet.name]
+			full: csvData[planet.name]
 		};
 	}
 

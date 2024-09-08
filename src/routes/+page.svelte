@@ -4,11 +4,11 @@
 	import { profile } from '$lib/stores/profile.js';
 	import { messagesRead } from '$lib/stores/messagesRead.js';
 	import { filterMessages } from '$lib/js/messages.js';
-    import planetData from '$lib/data/planetData.js';
+	import planetData from '$lib/data/planetData.js';
 
 	export let data;
 
-	$: messages = filterMessages(data.messages, $profile, $messagesRead);
+	$: messages = filterMessages(data.messages, $profile, $messagesRead, 6);
 
 	$: outgoingMessages = data.messages
 		.filter((message) => message.from === $profile)
@@ -59,15 +59,26 @@
 						<div class="content-container">
 							<p class="content">{message.content}</p>
 						</div>
-                        <div class="progress-bar" style="--progress: {outgoingProgressIndicator(message.created_at, message.arrives_at)*100}%">
-                            <div class="progress-bar-filled" style="background-color: {planetData.find(obj => obj.name === message.to).color};"></div>
-                        </div>
+						<div
+							class="progress-bar"
+							style="--progress: {outgoingProgressIndicator(
+								message.created_at,
+								message.arrives_at
+							) * 100}%"
+						>
+							<div
+								class="progress-bar-filled"
+								style="background-color: {planetData.find((obj) => obj.name === message.to).color};"
+							></div>
+						</div>
 						<p class="details">
 							<span class="to">{message.to}</span>
 							<span class="separator">•</span>
 							<span class="date">{formatDate(message.arrives_at)}</span>
 							<span class="separator">•</span>
-							<span class="time">{formatSecs((new Date(message.arrives_at) - new Date())/1000)} remaining</span>
+							<span class="time"
+								>{formatSecs((new Date(message.arrives_at) - new Date()) / 1000)} remaining</span
+							>
 						</p>
 					</a>
 				{/each}
@@ -79,7 +90,7 @@
 <style>
 	.page {
 		display: flex;
-		margin-top: 0rem;
+		margin-top: 1rem;
 	}
 	.side {
 		width: 25%;
@@ -96,22 +107,23 @@
 		width: 50%;
 		display: flex;
 		padding: 0 2rem;
+		flex-direction: column;
 	}
 	.messages {
 		display: flex;
 		flex-direction: column;
 		gap: 0.5rem;
 	}
-    .progress-bar {
-        width: 300px;
-        height: 5px;
-        background-color: #343434;
-        border-radius: 5px;
-        overflow: hidden;
-    }
+	.progress-bar {
+		width: 300px;
+		height: 5px;
+		background-color: #343434;
+		border-radius: 5px;
+		overflow: hidden;
+	}
 
-    .progress-bar-filled {
-        height: 100%;
-        width: var(--progress);
-    }
+	.progress-bar-filled {
+		height: 100%;
+		width: var(--progress);
+	}
 </style>
