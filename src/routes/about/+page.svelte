@@ -10,7 +10,7 @@
                 <br>
                 Estimated arrival times for outgoing messages can be seen in the <a href="/test/inbox">inbox</a>. Incoming messages are automatically updated as soon as they are recieved. To send a message, click on the destination planet in the home screen or select it on the <a href="/test/send">send</a> page.<br>
                 <br>
-                This site was created for the EmP Hackfest Fall 2024.
+                This site was created for the Fall 2024 EmP Hackfest.
             </p>
         </div>
         
