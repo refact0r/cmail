@@ -3,35 +3,15 @@
 	import { formatDate, formatTime } from '$lib/js/utils.js';
 	import { profile } from '$lib/stores/profile.js';
 	import { messagesRead } from '$lib/stores/messagesRead.js';
+	import { filterMessages } from '$lib/js/messages.js';
 
 	export let data;
 
-	$: newMessages = data.messages
-		.filter((message) => message.to === $profile)
-		.filter((message) => !$messagesRead.includes(message.id))
-		.sort((a, b) => b.created_at - a.created_at)
-		.splice(0, 6)
-		.map((message) => {
-			return {
-				...message,
-				read: false
-			};
-		});
-	$: oldMessages = data.messages
-		.filter((message) => message.to !== $profile)
-		.filter((message) => $messagesRead.includes(message.id))
-		.sort((a, b) => b.created_at - a.created_at)
-		.splice(0, 6 - newMessages.length)
-		.map((message) => {
-			return {
-				...message,
-				read: true
-			};
-		});
-    
-    $: outgoingMessages = data.messages
+	$: messages = filterMessages(data.messages, $profile, $messagesRead);
+
+	$: outgoingMessages = data.messages
 		.filter((message) => message.from === $profile)
-        .filter((message) => new Date(message.arrives_at) > new Date())
+		.filter((message) => new Date(message.arrives_at) > new Date())
 		.sort((a, b) => b.created_at - a.created_at)
 		.splice(0, 6)
 		.map((message) => {
@@ -39,7 +19,6 @@
 				...message
 			};
 		});
-	$: messages = [...newMessages, ...oldMessages];
 </script>
 
 <div class="page">
@@ -71,7 +50,7 @@
 	<div class="side">
 		<div class="outgoing box">
 			<h2>Outgoing</h2>
-            <div class="messages">
+			<div class="messages">
 				{#each outgoingMessages as message}
 					<a class="message" href="/inbox/{message.id}">
 						<div class="content-container">
