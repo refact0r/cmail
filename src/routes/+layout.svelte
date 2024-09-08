@@ -32,19 +32,20 @@
 		</div>
 	</nav>
 	<div class="transition">
-            {#key data.pathname}
+            
 
-                {#if !data.pathname.includes("/inbox/")}
-                    <div class="content" in:fade={{ duration: 200, delay: 200 }} out:fade={{ duration: 200 }}>
-                        <slot />
-                    </div>
-                {:else}
-                    <div class="content">
-                        <slot />
-                    </div>
-                {/if}
+        <!-- {#if !data.pathname.includes("/inbox/")} -->
+        {#key data.pathname.replace(/^\/inbox\//, '')}
+            <div class="content" in:fade={{ duration: 200, delay: 200 }} out:fade={{ duration: 200 }}>
+                <slot />
+            </div>
+        {/key}
+        <!-- {:else}
+            <div class="content">
+                <slot />
+            </div>
+        {/if} -->
 
-            {/key}
 	</div>
 </div>
 
