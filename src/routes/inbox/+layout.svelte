@@ -3,11 +3,12 @@
 	import { messagesRead } from '$lib/stores/messagesRead.js';
 	import { filterMessages } from '$lib/js/messages.js';
 	import { formatDate, formatTime } from '$lib/js/utils.js';
+	import { fade } from 'svelte/transition';
 
 	export let data;
 
 	$: messages = filterMessages(data.messages, $profile, $messagesRead);
-
+	$: console.log(data.pathname);
 	let select = 'incoming';
 </script>
 
@@ -48,8 +49,12 @@
 				</div>
 			</div>
 		</div>
-		<div class="side">
-			<slot />
+		<div class="side2">
+			{#key data.pathname}
+				<div class="content" in:fade={{ duration: 200, delay: 200 }} out:fade={{ duration: 200 }}>
+					<slot />
+				</div>
+			{/key}
 		</div>
 	</div>
 </div>
@@ -75,6 +80,18 @@
 	}
 	.side .box {
 		width: 100%;
+	}
+	.side2 {
+		display: grid;
+		width: 100%;
+	}
+	.content {
+		display: flex;
+		width: 100%;
+		grid-column-start: 1;
+		grid-column-end: 2;
+		grid-row-start: 1;
+		grid-row-end: 2;
 	}
 	.messages {
 		flex: 1;
