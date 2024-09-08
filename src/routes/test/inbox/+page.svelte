@@ -4,23 +4,25 @@
     let select = 'incoming';
 </script>
 
-<h1>Inbox</h1>
-<div class="objects">
-    <div class="setting">
-        <button class:selected={select==="incoming"} id="incoming" on:click={() => (select = 'incoming')}>Incoming</button>
-        <br>
-        <button class:selected={select==="outgoing"} id="outgoing" on:click={() => (select = 'outgoing')}>Outgoing</button>
-    </div>
-    <div class="messages">
-        {#if select === 'incoming'}
-            <div class="message">
-                <p><b>[ By: Mars | 02:25 AM | 09/08/2025 ]</b><!--{Message Content}--> Hello Earthlings!</p>
-            </div>
-        {:else}
-            <div class="message">
-                <p><b>[ To: Mars | 02:53 AM | 09/08/2025 | ETA 12min ]</b><!--{Message Content}--> What's up Martians!</p>
-            </div>
-        {/if}
+<div class="page">
+    <h1>Inbox</h1>
+    <div class="objects">
+        <div class="setting">
+            <button class:selected={select==="incoming"} id="incoming" on:click={() => (select = 'incoming')}>Incoming</button>
+            <br>
+            <button class:selected={select==="outgoing"} id="outgoing" on:click={() => (select = 'outgoing')}>Outgoing</button>
+        </div>
+        <div class="messages">
+            {#if select === 'incoming'}
+                <div class="message">
+                    <p><b>[ By: Mars | 02:25 AM | 09/08/2025 ]</b><!--{Message Content}--> Hello Earthlings!</p>
+                </div>
+            {:else}
+                <div class="message">
+                    <p><b>[ To: Mars | 02:53 AM | 09/08/2025 | ETA 12min ]</b><!--{Message Content}--> What's up Martians!</p>
+                </div>
+            {/if}
+        </div>
     </div>
 </div>
 
