@@ -105,7 +105,7 @@
     .progress-bar {
         width: 300px;
         height: 5px;
-        background-color: #e0e0e0;
+        background-color: #343434;
         border-radius: 5px;
         overflow: hidden;
     }
