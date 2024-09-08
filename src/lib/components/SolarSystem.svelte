@@ -26,21 +26,26 @@
 	$: calc = Object.values(data.planets)
 		.map((planet) => {
 			planet = convertPlanet(planet, date);
+			planet = { ...planet, ...coords(planet) };
 			const currDist = dist(convertPlanet(data.planets[$profile], date), planet);
 			let messages = [];
 			for (const message of data.messages) {
 				if (
 					message.from === $profile &&
 					message.to === planet.name &&
-					new Date(message.arrives_at) > new Date(date)
+					new Date(message.arrives_at) > new Date()
 				) {
-					messages.push(message);
+					const res = msgCoord(
+						message,
+						planet,
+						coords(convertPlanet(data.planets[$profile], date))
+					);
+					messages.push({ ...message, ...res });
 				}
 			}
 			console.log(messages);
 			return {
 				...planet,
-				...coords(planet),
 				messages,
 				currDist,
 				currTime: (currDist / constants.c) * 1000,
@@ -153,13 +158,14 @@
 			>
 				{planet.name}
 			</text>
+
 			{#each planet.messages as message}
 				<circle
 					fill="#999"
 					class="message"
 					cx={msgCoord(message, planet, currDisplay).displayX}
 					cy={msgCoord(message, planet, currDisplay).displayY}
-					r={6}
+					r={10}
 				/>
 			{/each}
 		{/if}
