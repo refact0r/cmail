@@ -1,6 +1,6 @@
 <script>
 	import SolarSystem from '$lib/components/SolarSystem.svelte';
-	import { formatDate, formatTime, outgoingProgressIndicator } from '$lib/js/utils.js';
+	import { formatDate, formatTime, formatSecs, outgoingProgressIndicator } from '$lib/js/utils.js';
 	import { profile } from '$lib/stores/profile.js';
 	import { messagesRead } from '$lib/stores/messagesRead.js';
 	import { filterMessages } from '$lib/js/messages.js';
@@ -67,7 +67,7 @@
 							<span class="separator">•</span>
 							<span class="date">{formatDate(message.arrives_at)}</span>
 							<span class="separator">•</span>
-							<span class="time">{formatTime(message.arrives_at)}</span>
+							<span class="time">{formatSecs((new Date(message.arrives_at) - new Date())/1000)} remaining</span>
 						</p>
 					</a>
 				{/each}
