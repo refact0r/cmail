@@ -1,16 +1,23 @@
 <script>
 	import planetData from '$lib/data/planetData.js';
-	import { getCoords, scaleDiam, scaleDist } from '$lib/js/planets.js';
+	import { coords, dist, sunDist, scaleDiam, scaleDist } from '$lib/js/planets.js';
+	import { formatAU, formatSecs } from '$lib/js/utils.js';
+	import * as constants from '$lib/js/constants.js';
+
+	export let data;
 
 	const curr = 6;
-	const currCoords = getCoords(planetData[curr]);
-	const originX = currCoords.x;
-	const originY = currCoords.y;
+	$: currDisplay = coords(planetData[curr], data.data[planetData[curr].name]);
 
-	$: calculated = planetData.map((planet) => {
+	$: calc = planetData.map((planet) => {
+		const currDist = dist(data.data[planetData[curr].name], data.data[planet.name]);
 		return {
 			...planet,
-			...getCoords(planet)
+			...coords(planet, data.data[planet.name]),
+			...data.data[planet.name],
+			currDist,
+			currTime: (currDist / constants.c) * 1000,
+			sunDist: sunDist(data.data[planet.name])
 		};
 	});
 
@@ -36,62 +43,119 @@
 	}
 </script>
 
-<svg viewBox="0 0 1000 1000">
-	<circle cx={500} cy={500} r={20} fill="#ffec4c" />
-	{#each calculated as planet}
-		<circle
-			class="orbit"
-			cx={500}
-			cy={500}
-			r={scaleDist(planet.distance)}
-			stroke="currentColor"
-			stroke-width="2"
-			fill="none"
-		/>
-	{/each}
-	{#each calculated as planet, i}
-		{#if i !== curr}
-			<line
-				x1={planet.x}
-				y1={planet.y}
-				x2={originX}
-				y2={originY}
-				stroke="currentColor"
-				stroke-width="8"
-				on:mouseover|preventDefault={(event) => LineMouseOver(event, i)}
-				on:mousemove|preventDefault={(event) => LineMouseMove(event)}
-				on:mouseout|preventDefault={() => LineMouseOut()}
-			/>
-		{/if}
-	{/each}
-	{#each calculated as planet}
-		<circle
-			class="planet"
-			cx={planet.x}
-			cy={planet.y}
-			r={scaleDiam(planet.diameter)}
-			fill={planet.color}
-		/>
-		<text
-			x={planet.x}
-			y={planet.y + scaleDiam(planet.diameter) + 20}
-			text-anchor="middle"
-			fill="white"
-		>
-			{planet.name}
-		</text>
-	{/each}
-</svg>
+<div class="page">
+	<div class="left"></div>
+	<div class="system">
+		<svg viewBox="0 0 1000 1000">
+			<circle cx={500} cy={500} r={20} fill="#ffec4c" />
+			{#each calc as planet}
+				<circle
+					class="orbit"
+					cx={500}
+					cy={500}
+					r={scaleDist(planet.distance)}
+					stroke="currentColor"
+					stroke-width="2"
+					fill="none"
+				/>
+			{/each}
+			{#each calc as planet, i}
+				{#if i !== curr}
+					<line
+						x1={planet.displayX}
+						y1={planet.displayY}
+						x2={currDisplay.displayX}
+						y2={currDisplay.displayY}
+						stroke="currentColor"
+						stroke-width="10"
+						tabindex="0"
+						role="button"
+						on:mouseover|preventDefault={(event) => LineMouseOver(event, i)}
+						on:focus|preventDefault={(event) => LineMouseOver(event, i)}
+						on:mousemove|preventDefault={(event) => LineMouseMove(event)}
+						on:mouseout|preventDefault={() => LineMouseOut()}
+						on:blur|preventDefault={() => LineMouseOut()}
+					/>
+				{/if}
+			{/each}
+			{#each calc as planet, i}
+				{#if i === curr}
+					<circle
+						class="planet"
+						cx={planet.displayX}
+						cy={planet.displayY}
+						r={scaleDiam(planet.diameter)}
+						fill={planet.color}
+					/>
+					<text
+						x={planet.x}
+						y={planet.y + scaleDiam(planet.diameter) + 20}
+						text-anchor="middle"
+						fill="white"
+					>
+						{planet.name}
+					</text>
+				{:else}
+					<circle
+						class="planet"
+						cx={planet.displayX}
+						cy={planet.displayY}
+						r={scaleDiam(planet.diameter)}
+						fill={planet.color}
+						tabindex="0"
+						role="button"
+						on:mouseover|preventDefault={(event) => LineMouseOver(event, i)}
+						on:focus|preventDefault={(event) => LineMouseOver(event, i)}
+						on:mousemove|preventDefault={(event) => LineMouseMove(event)}
+						on:mouseout|preventDefault={() => LineMouseOut()}
+						on:blur|preventDefault={() => LineMouseOut()}
+					/>
+					<text
+						x={planet.displayX}
+						y={planet.displayY + scaleDiam(planet.diameter) + 20}
+						text-anchor="middle"
+						fill="white"
+						tabindex="0"
+						role="button"
+						on:mouseover|preventDefault={(event) => LineMouseOver(event, i)}
+						on:focus|preventDefault={(event) => LineMouseOver(event, i)}
+						on:mousemove|preventDefault={(event) => LineMouseMove(event)}
+						on:mouseout|preventDefault={() => LineMouseOut()}
+						on:blur|preventDefault={() => LineMouseOut()}
+					>
+						{planet.name}
+					</text>
+				{/if}
+			{/each}
+		</svg>
+	</div>
+	<div class="right"></div>
+</div>
 
 {#if popupVisible}
 	<div class="popup" style="left: {popupX}px; top: {popupY}px;">
-		<h3>{calculated[popupCurr].name}</h3>
-		<p>Distance from Sun: {calculated[popupCurr].distance} AU</p>
-		<p>Orbital Period: {calculated[popupCurr].period} years</p>
+		<h3>{calc[popupCurr].name}</h3>
+		<p>distance from sun: {formatAU(calc[popupCurr].sunDist)} AU</p>
+		<p>distance from {planetData[curr].name}: {formatAU(calc[popupCurr].currDist)} AU</p>
+		<p>
+			message time from {planetData[curr].name}: {formatSecs(calc[popupCurr].currTime)}
+		</p>
 	</div>
 {/if}
 
 <style>
+	.page {
+		display: flex;
+	}
+	.left {
+		width: 30%;
+	}
+	.right {
+		width: 30%;
+	}
+	.system {
+		width: 40%;
+	}
 	svg {
 		width: 100%;
 		height: 100%;
@@ -102,14 +166,20 @@
 	}
 	text {
 		font-weight: 300;
-		font-size: 0.75rem;
+		font-size: 0.875rem;
+	}
+	text:hover {
+		cursor: pointer;
+	}
+	.planet:hover {
+		cursor: pointer;
+		filter: brightness(1.2);
 	}
 	line {
 		color: color-mix(in srgb, var(--fg), transparent 80%);
 		transition: color 0.1s;
 	}
 	line:hover {
-		cursor: pointer;
 		color: color-mix(in srgb, var(--fg), transparent 50%);
 	}
 	.popup {
