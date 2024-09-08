@@ -1,5 +1,6 @@
 <script>
 	import planetData from '$lib/data/planetData.js';
+	import { getCoords, scaleDiam, scaleDist } from '$lib/js/planets.js';
 
 	const curr = 6;
 	const currCoords = getCoords(planetData[curr]);
@@ -13,26 +14,25 @@
 		};
 	});
 
-	function scaleDiameter(diameter) {
-		const ratio = diameter / 4879;
-		const log = Math.log2(ratio + 4);
-		return log * 4;
-	}
+	let popupCurr = 0;
+	let popupVisible = false;
+	let popupX = 0;
+	let popupY = 0;
 
-	function scaleDistance(distance) {
-		const ratio = distance / 57.9;
-		const log = Math.log2(ratio + 1);
-		return log * 70;
+	function LineMouseOver(event, i) {
+		popupVisible = true;
+		popupCurr = i;
+		const { clientX, clientY } = event;
+		popupX = clientX + 10;
+		popupY = clientY + 10;
 	}
-
-	function getCoords(planet) {
-		const diff = new Date().getTime() - new Date(2000, 0, 1);
-		const period = planet.period * 24 * 60 * 60 * 1000;
-		const degrees = ((diff % period) / period) * 360 + planet.startDegrees;
-		const radians = (degrees * Math.PI) / 180;
-		const x = scaleDistance(planet.distance) * Math.cos(radians + Math.PI) + 500;
-		const y = scaleDistance(planet.distance) * Math.sin(radians + Math.PI) + 500;
-		return { x, y };
+	function LineMouseOut() {
+		popupVisible = false;
+	}
+	function LineMouseMove(event) {
+		const { clientX, clientY } = event;
+		popupX = clientX + 10;
+		popupY = clientY + 10;
 	}
 </script>
 
@@ -43,7 +43,7 @@
 			class="orbit"
 			cx={500}
 			cy={500}
-			r={scaleDistance(planet.distance)}
+			r={scaleDist(planet.distance)}
 			stroke="currentColor"
 			stroke-width="2"
 			fill="none"
@@ -57,7 +57,10 @@
 				x2={originX}
 				y2={originY}
 				stroke="currentColor"
-				stroke-width="6"
+				stroke-width="8"
+				on:mouseover|preventDefault={(event) => LineMouseOver(event, i)}
+				on:mousemove|preventDefault={(event) => LineMouseMove(event)}
+				on:mouseout|preventDefault={() => LineMouseOut()}
 			/>
 		{/if}
 	{/each}
@@ -66,12 +69,12 @@
 			class="planet"
 			cx={planet.x}
 			cy={planet.y}
-			r={scaleDiameter(planet.diameter)}
+			r={scaleDiam(planet.diameter)}
 			fill={planet.color}
 		/>
 		<text
 			x={planet.x}
-			y={planet.y + scaleDiameter(planet.diameter) + 20}
+			y={planet.y + scaleDiam(planet.diameter) + 20}
 			text-anchor="middle"
 			fill="white"
 		>
@@ -79,6 +82,14 @@
 		</text>
 	{/each}
 </svg>
+
+{#if popupVisible}
+	<div class="popup" style="left: {popupX}px; top: {popupY}px;">
+		<h3>{calculated[popupCurr].name}</h3>
+		<p>Distance from Sun: {calculated[popupCurr].distance} AU</p>
+		<p>Orbital Period: {calculated[popupCurr].period} years</p>
+	</div>
+{/if}
 
 <style>
 	svg {
@@ -100,5 +111,19 @@
 	line:hover {
 		cursor: pointer;
 		color: color-mix(in srgb, var(--fg), transparent 50%);
+	}
+	.popup {
+		position: fixed;
+		background-color: var(--bg-2);
+		/* border: 2px solid var(--fg-3); */
+		padding: 1rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		border-radius: 1rem;
+	}
+	.popup h3,
+	.popup p {
+		margin: 0;
 	}
 </style>
