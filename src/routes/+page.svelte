@@ -13,7 +13,7 @@
 		.filter((message) => message.from === $profile)
 		.filter((message) => new Date(message.arrives_at) > new Date())
 		.sort((a, b) => b.created_at - a.created_at)
-		.splice(0, 6)
+		.splice(0, 5)
 		.map((message) => {
 			return {
 				...message
@@ -30,7 +30,9 @@
 					<a class="message box2" href="/inbox/{message.id}">
 						<div class="content-container">
 							<p class="content">{message.content}</p>
-							<div class="new">•</div>
+							{#if !$messagesRead.includes(String(message.id))}
+								<div class="new">•</div>
+							{/if}
 						</div>
 						<p class="details">
 							<span class="from">{message.from}</span>
@@ -56,7 +58,9 @@
 						<div class="content-container">
 							<p class="content">{message.content}</p>
 						</div>
-                        <div class="new">{outgoingProgressIndicator(message.created_at, message.arrives_at)}</div>
+						<div class="new">
+							{outgoingProgressIndicator(message.created_at, message.arrives_at)}
+						</div>
 						<p class="details">
 							<span class="to">{message.to}</span>
 							<span class="separator">•</span>

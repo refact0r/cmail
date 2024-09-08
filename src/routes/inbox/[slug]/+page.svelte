@@ -1,9 +1,20 @@
 <script>
 	import { formatDate, formatTime } from '$lib/js/utils.js';
+	import { tick } from 'svelte';
+	import { messagesRead } from '$lib/stores/messagesRead.js';
 
 	export let data;
 
 	$: message = data.messages.find((msg) => String(msg.id) === String(data.id));
+
+	$: if (data && data.id && !$messagesRead.includes(data.id)) {
+		updateMessagesRead();
+	}
+	async function updateMessagesRead() {
+		$messagesRead.push(data.id);
+		$messagesRead = $messagesRead;
+		await tick();
+	}
 </script>
 
 <div class="container box">

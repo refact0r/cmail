@@ -3,12 +3,14 @@
 	import { messagesRead } from '$lib/stores/messagesRead.js';
 	import { filterMessages } from '$lib/js/messages.js';
 	import { formatDate, formatTime } from '$lib/js/utils.js';
-    import { fade } from 'svelte/transition';
+	import { fade } from 'svelte/transition';
 
 	export let data;
 
+	$: console.log($messagesRead);
+
 	$: messages = filterMessages(data.messages, $profile, $messagesRead);
-    $: console.log(data.pathname);
+	$: console.log(data.pathname);
 	let select = 'incoming';
 </script>
 
@@ -35,7 +37,9 @@
 						<a class="message box2" href="/inbox/{message.id}">
 							<div class="content-container">
 								<p class="content">{message.content}</p>
-								<div class="new">•</div>
+								{#if !$messagesRead.includes(String(message.id))}
+									<div class="new">•</div>
+								{/if}
 							</div>
 							<p class="details">
 								<span class="from">{message.from}</span>
@@ -49,12 +53,12 @@
 				</div>
 			</div>
 		</div>
-		<div class="side">
-            {#key data.pathname}
-                <div class="content" in:fade={{ duration: 200, delay: 200 }} out:fade={{ duration: 200 }}>
-                    <slot />
-                </div>
-            {/key}
+		<div class="side2">
+			{#key data.pathname}
+				<div class="content" in:fade={{ duration: 200, delay: 200 }} out:fade={{ duration: 200 }}>
+					<slot />
+				</div>
+			{/key}
 		</div>
 	</div>
 </div>
@@ -80,6 +84,18 @@
 	}
 	.side .box {
 		width: 100%;
+	}
+	.side2 {
+		display: grid;
+		width: 100%;
+	}
+	.content {
+		display: flex;
+		width: 100%;
+		grid-column-start: 1;
+		grid-column-end: 2;
+		grid-row-start: 1;
+		grid-row-end: 2;
 	}
 	.messages {
 		flex: 1;
