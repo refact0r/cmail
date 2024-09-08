@@ -103,6 +103,11 @@
 		flex-direction: column;
 		gap: 0.25rem;
 		text-decoration: none;
+		transition: 0.1s;
+	}
+	.message:hover {
+		background-color: var(--bg-4);
+		border-color: var(--bg-5);
 	}
 	.message p {
 		margin: 0;
