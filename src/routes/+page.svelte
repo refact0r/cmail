@@ -8,8 +8,27 @@
 
 	$: newMessages = data.messages
 		.filter((message) => message.to === $profile)
+		.filter((message) => !$messagesRead.includes(message.id))
 		.sort((a, b) => b.created_at - a.created_at)
-		.splice(0, 6);
+		.splice(0, 6)
+		.map((message) => {
+			return {
+				...message,
+				read: false
+			};
+		});
+	$: oldMessages = data.messages
+		.filter((message) => message.to !== $profile)
+		.filter((message) => $messagesRead.includes(message.id))
+		.sort((a, b) => b.created_at - a.created_at)
+		.splice(0, 6 - newMessages.length)
+		.map((message) => {
+			return {
+				...message,
+				read: true
+			};
+		});
+	$: messages = [...newMessages, ...oldMessages];
 </script>
 
 <div class="page">
@@ -18,7 +37,7 @@
 			<h2>New</h2>
 			<div class="messages">
 				{#each newMessages as message}
-					<div class="message">
+					<a class="message" href="/inbox/{message.id}">
 						<div class="content-container">
 							<p class="content">{message.content}</p>
 							<div class="new">•</div>
@@ -30,7 +49,7 @@
 							<span class="separator">•</span>
 							<span class="time">{formatTime(message.created_at)}</span>
 						</p>
-					</div>
+					</a>
 				{/each}
 			</div>
 		</div>
@@ -83,6 +102,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: 0.25rem;
+		text-decoration: none;
 	}
 	.message p {
 		margin: 0;
