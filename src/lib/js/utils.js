@@ -7,7 +7,6 @@ export function formatAU(km) {
 }
 
 export function formatSecs(s) {
-	console.log(s);
 	// const days = Math.floor(seconds / 86400);
 	const hrs = Math.floor(s / 3600);
 	const mins = Math.floor((s % 3600) / 60);
