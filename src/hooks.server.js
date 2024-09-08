@@ -2,6 +2,7 @@ import { loadCSV } from '$lib/js/loadCSV.js';
 import planetData from '$lib/data/planetData.js';
 import { dev } from '$app/environment';
 import { formatCSVDate } from '$lib/js/utils.js';
+import { supabase } from '$lib/js/supabaseClient';
 
 let csvData = null;
 
@@ -33,6 +34,9 @@ export async function handle({ event, resolve }) {
 	}
 
 	event.locals.planets = finalData;
+
+	const { data } = await supabase.from('messages').select('*');
+	event.locals.messages = data ?? [];
 
 	const response = await resolve(event);
 	return response;

@@ -23,3 +23,26 @@ export function formatCSVDate(date) {
 
 	return `${year}-${month}-${day}`;
 }
+
+export function formatDate(datetime) {
+	const d = new Date(datetime);
+	const date = d.toLocaleString('default', {
+		year: 'numeric',
+		month: 'numeric',
+		day: 'numeric'
+	});
+
+	return date;
+}
+
+export function formatTime(datetime) {
+	const d = new Date(datetime);
+	const time = d.toLocaleTimeString('default', {
+		hour: 'numeric',
+		minute: 'numeric',
+		second: 'numeric',
+		hour12: false
+	});
+
+	return time;
+}

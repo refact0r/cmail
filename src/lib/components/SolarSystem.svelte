@@ -137,7 +137,7 @@
 		height: 100%;
 	}
 	.orbit {
-		color: var(--bg-2);
+		color: var(--bg-3);
 		z-index: -1;
 	}
 	text {
@@ -150,10 +150,10 @@
 	}
 	.planet:hover {
 		cursor: pointer;
-		filter: brightness(1.2);
+		filter: brightness(1.3);
 	}
 	line {
-		color: color-mix(in srgb, var(--fg), transparent 80%);
+		color: color-mix(in srgb, var(--fg), transparent 85%);
 		transition: color 0.1s;
 	}
 	line:hover {

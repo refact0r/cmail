@@ -32,9 +32,10 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"prettier": "^3.3.3",
 		"@fontsource-variable/dm-sans": "^5.0.8",
 		"@fontsource/dm-mono": "^5.0.22",
+		"@supabase/supabase-js": "^2.45.3",
+		"prettier": "^3.3.3",
 		"svelte-persisted-store": "^0.11.0"
 	}
 }
