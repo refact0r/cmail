@@ -71,9 +71,12 @@
 		font-size: 2rem;
 		color: var(--fg);
 		transition: 0.3s;
+		padding: .5rem;
+		border-radius: 1rem;
 	}
 	.brand:hover {
-		color: white;
+		color: var(--bg);
+		background-color: var(--fg);
 	}
 	.items {
 		display: flex;

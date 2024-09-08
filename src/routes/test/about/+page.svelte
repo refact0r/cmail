@@ -1,4 +1,8 @@
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<h1>About</h1>
 
 <style>
+    h1 {
+        font-family: 'Orbitron', sans-serif;
+        text-align: center;
+    }
 </style>
