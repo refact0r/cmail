@@ -7,6 +7,7 @@
 	import IconAbout from "phosphor-svelte/lib/Question"
 
 	export let data;
+
 </script>
 
 <div class="app">
@@ -19,12 +20,12 @@
 				<div class="items">
 					<div class="selector">
 						<label for="server">Profile: </label>
-						<select name="server" id="server" title="Select planet" >
+						<select name="server" id="server" title="Select planet" value="earth">
+							<option value="mercury" title="Mercury">Mercury</option>
+							<option value="venus" title="Venus">Venus</option>
 							<option value="earth" title="Earth">Earth</option>
 							<option value="moon" title="Moon">Moon</option>
 							<option value="mars" title="Mars">Mars</option>
-							<option value="mercury" title="Mercury">Mercury</option>
-							<option value="venus" title="Venus">Venus</option>
 							<option value="jupiter" title="Jupiter">Jupiter</option>
 							<option value="saturn" title="Saturn">Saturn</option>
 							<option value="uranus" title="Uranus">Uranus</option>
@@ -72,8 +73,12 @@
 		padding: 1rem 2rem 0rem;
         font-family: 'Orbitron', sans-serif;
     }
+	label{
+		color: white;
+	}
 	.brand {
 		font-size: 2rem;
+		color: white;
 		transition: .3s;
 	}
 	.brand:hover{
