@@ -1,6 +1,6 @@
 import { error } from '@sveltejs/kit';
 
-const modules = import.meta.glob('$lib/data/horizons-clean/*.csv', { eager: true });
+const modules = import.meta.glob('$lib/data/horizons/*.csv', { eager: true });
 
 function formatDate(date) {
 	const year = date.getFullYear();
