@@ -5,13 +5,13 @@
 	--fg-3: hsl(50, 2%, 30%);
 	--fg-2: hsl(50, 5%, 50%);
 	--fg: hsl(50, 25%, 80%);
-	font-family: 'Dm Sans', sans-serif;
+	font-family: 'Dm sans', sans-serif;
 	font-weight: 400;
 }
 
 body {
 	--dot-bg: var(--bg);
-	--dot-color: var(--fg);
+	--dot-color: var(--fg-3);
 	--dot-size: 1px;
 	--dot-space: 22px;
 	background:
@@ -21,4 +21,7 @@ body {
 			var(--dot-space) var(--dot-space),
 		var(--dot-color);
 	color: var(--fg);
+	margin: 0;
+	min-height: 100vh;
+	height: 100%;
 }

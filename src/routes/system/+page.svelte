@@ -47,7 +47,7 @@
 	<div class="left"></div>
 	<div class="system">
 		<svg viewBox="0 0 1000 1000">
-			<circle cx={500} cy={500} r={20} fill="#ffec4c" />
+			<circle cx={500} cy={500} r={30} fill="#ffec4c" />
 			{#each calc as planet}
 				<circle
 					class="orbit"
@@ -88,8 +88,8 @@
 						fill={planet.color}
 					/>
 					<text
-						x={planet.x}
-						y={planet.y + scaleDiam(planet.diameter) + 20}
+						x={planet.displayX}
+						y={planet.displayY + scaleDiam(planet.diameter) + 20}
 						text-anchor="middle"
 						fill="white"
 					>
@@ -180,6 +180,7 @@
 		transition: color 0.1s;
 	}
 	line:hover {
+		cursor: pointer;
 		color: color-mix(in srgb, var(--fg), transparent 50%);
 	}
 	.popup {

@@ -1,6 +1,6 @@
 export function scaleDiam(diameter) {
 	const ratio = diameter / 4879;
-	const log = Math.log2(ratio + 4);
+	const log = Math.log2(ratio + 5);
 	return log * 5;
 }
 
