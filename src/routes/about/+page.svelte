@@ -1,5 +1,5 @@
 <div class="page">
-	<h1>About</h1>
+	<h1>about</h1>
 	<div class="content">
 		<div class="text">
 			<p>

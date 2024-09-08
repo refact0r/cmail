@@ -3,35 +3,27 @@
 	import { dist, scaleDiam } from '$lib/js/planets.js';
 	import { formatAU, formatSecs, hexToHSL, darken } from '$lib/js/utils.js';
 	import * as constants from '$lib/js/constants.js';
-	import { afterUpdate } from 'svelte';
 	import { enhance } from '$app/forms';
 	import IconSend from 'phosphor-svelte/lib/PaperPlaneRight';
 	import { toast } from '@zerodevx/svelte-toast';
 	import { page } from '$app/stores';
+	import { convertPlanet } from '$lib/js/planets.js';
 
 	export let data;
 
 	let destination = $page.url.searchParams.get('to') ?? 'earth';
-	let distance_km;
-	let distance_au;
-	let delay;
-	let delay_sec;
 
-	distance_km = dist(data.planets[$profile], data.planets[destination]);
-	distance_au = formatAU(distance_km);
-	delay_sec = (distance_km / constants.c) * 1000;
-	delay = formatSecs(delay_sec);
+	$: curr = convertPlanet(data.planets[$profile], new Date());
+	$: dest = convertPlanet(data.planets[destination], new Date());
 
-	function updateVals() {
-		distance_km = dist(data.planets[$profile], data.planets[destination]);
-		distance_au = formatAU(distance_km);
-		delay_sec = (distance_km / constants.c) * 1000;
-		delay = formatSecs(delay_sec);
-	}
+	$: distance_km = dist(curr, dest);
+	$: distance_au = formatAU(distance_km);
+	$: delay_sec = (distance_km / constants.c) * 1000;
+	$: delay = formatSecs(delay_sec);
 </script>
 
 <div class="page">
-	<h1>Send</h1>
+	<h1>send</h1>
 	<div class="form-box">
 		<form
 			method="POST"
@@ -63,60 +55,60 @@
 						<circle
 							cx={300}
 							cy={500}
-							r={scaleDiam(data.planets[$profile].diameter) * 10}
+							r={scaleDiam(curr.diameter) * 10}
 							fill={darken(
-								hexToHSL(data.planets[$profile].color)[0],
-								hexToHSL(data.planets[$profile].color)[1],
-								hexToHSL(data.planets[$profile].color)[2],
+								hexToHSL(curr.color)[0],
+								hexToHSL(curr.color)[1],
+								hexToHSL(curr.color)[2],
 								20
 							)}
 						/>
 						<circle
-							cx={300 - scaleDiam(data.planets[$profile].diameter) / 1.5}
-							cy={500 - scaleDiam(data.planets[$profile].diameter) / 1.5}
-							r={scaleDiam(data.planets[$profile].diameter) * 8.5}
+							cx={300 - scaleDiam(curr.diameter) / 1.5}
+							cy={500 - scaleDiam(curr.diameter) / 1.5}
+							r={scaleDiam(curr.diameter) * 8.5}
 							fill={darken(
-								hexToHSL(data.planets[$profile].color)[0],
-								hexToHSL(data.planets[$profile].color)[1],
-								hexToHSL(data.planets[$profile].color)[2],
+								hexToHSL(curr.color)[0],
+								hexToHSL(curr.color)[1],
+								hexToHSL(curr.color)[2],
 								10
 							)}
 						/>
 						<circle
-							cx={300 - scaleDiam(data.planets[$profile].diameter) * 1.5}
-							cy={500 - scaleDiam(data.planets[$profile].diameter) * 1.5}
-							r={scaleDiam(data.planets[$profile].diameter) * 6.5}
-							fill={data.planets[$profile].color}
+							cx={300 - scaleDiam(curr.diameter) * 1.5}
+							cy={500 - scaleDiam(curr.diameter) * 1.5}
+							r={scaleDiam(curr.diameter) * 6.5}
+							fill={curr.color}
 						/>
 
 						<!--Planet Destination-->
 						<circle
 							cx={1700}
 							cy={500}
-							r={scaleDiam(data.planets[destination].diameter) * 10}
+							r={scaleDiam(dest.diameter) * 10}
 							fill={darken(
-								hexToHSL(data.planets[destination].color)[0],
-								hexToHSL(data.planets[destination].color)[1],
-								hexToHSL(data.planets[destination].color)[2],
+								hexToHSL(dest.color)[0],
+								hexToHSL(dest.color)[1],
+								hexToHSL(dest.color)[2],
 								20
 							)}
 						/>
 						<circle
-							cx={1700 - scaleDiam(data.planets[destination].diameter) / 1.5}
-							cy={500 - scaleDiam(data.planets[destination].diameter) / 1.5}
-							r={scaleDiam(data.planets[destination].diameter) * 8.5}
+							cx={1700 - scaleDiam(dest.diameter) / 1.5}
+							cy={500 - scaleDiam(dest.diameter) / 1.5}
+							r={scaleDiam(dest.diameter) * 8.5}
 							fill={darken(
-								hexToHSL(data.planets[destination].color)[0],
-								hexToHSL(data.planets[destination].color)[1],
-								hexToHSL(data.planets[destination].color)[2],
+								hexToHSL(dest.color)[0],
+								hexToHSL(dest.color)[1],
+								hexToHSL(dest.color)[2],
 								10
 							)}
 						/>
 						<circle
-							cx={1700 - scaleDiam(data.planets[destination].diameter) * 1.5}
-							cy={500 - scaleDiam(data.planets[destination].diameter) * 1.5}
-							r={scaleDiam(data.planets[destination].diameter) * 6.5}
-							fill={data.planets[destination].color}
+							cx={1700 - scaleDiam(dest.diameter) * 1.5}
+							cy={500 - scaleDiam(dest.diameter) * 1.5}
+							r={scaleDiam(dest.diameter) * 6.5}
+							fill={dest.color}
 						/>
 					</svg>
 				</div>
@@ -158,7 +150,7 @@
 					<div class="group">
 						<label for="message">Message</label>
 						<br />
-						<textarea name="message" id="message" maxlength="400" required></textarea>
+						<textarea class="box2" name="message" id="message" maxlength="400" required></textarea>
 					</div>
 				</div>
 			</div>
@@ -187,10 +179,10 @@
 		flex: 50%;
 	}
 	select {
-		border: 2px solid var(--bg-2);
+		border: 2px solid var(--bg-4);
 		padding: 0.5rem 0.75rem;
 		border-radius: 1rem;
-		background-color: var(--bg);
+		background-color: var(--bg-3);
 		font: inherit;
 		color: inherit;
 		transition: 0.1s;
@@ -198,12 +190,12 @@
 	}
 	select:hover {
 		cursor: pointer;
-		background-color: var(--fg);
-		color: var(--bg);
+		background-color: var(--bg-4);
+		border-color: var(--bg-5);
 	}
 	.fill {
 		background-color: var(--bg-2);
-        border: 2px solid var(--bg-3);
+		border: 2px solid var(--bg-3);
 		padding: 2rem;
 		border-radius: 1rem;
 	}
@@ -211,23 +203,21 @@
 		width: 100%;
 		resize: none;
 		height: 24vh;
-		background: var(--bg);
 		color: var(--fg);
 		transition: 0.3s;
 		border-radius: 1rem;
-		border: 2px solid var(--fg-3);
 		margin-top: 1rem;
 		padding: 1rem;
 	}
 	textarea:hover {
-		background: var(--fg);
-		color: var(--bg);
+		background: var(--bg-4);
+		border-color: var(--bg-5);
 	}
 	button[type='submit'] {
 		color: var(--fg);
-		background-color: var(--bg);
+		background-color: var(--bg-3);
 		font-size: 2rem;
-		border: var(--fg-3) 0.1rem solid;
+		border: var(--bg-4) 2px solid;
 		font-size: 1.5rem;
 		text-decoration: none;
 		border-radius: 4rem;
@@ -241,9 +231,9 @@
 		justify-content: center;
 	}
 	button[type='submit']:hover {
-		color: var(--bg);
-		background: var(--fg);
-		border: var(--bg) 0.1rem solid;
+		pointer: cursor;
+		background: var(--bg-4);
+		border: var(--bg-5) 2px solid;
 	}
 	.r {
 		align-items: right;

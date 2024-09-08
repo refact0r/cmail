@@ -1,3 +1,5 @@
+import { formatCSVDate } from '$lib/js/utils.js';
+
 export function scaleDiam(diameter) {
 	const ratio = diameter / 4879;
 	const log = Math.log2(ratio + 5);
@@ -28,4 +30,16 @@ export function sunDist(planet) {
 	const b = Math.pow(planet.y, 2);
 	const c = Math.pow(planet.z, 2);
 	return Math.sqrt(a + b + c);
+}
+
+export function convertPlanet(planet, date) {
+	let hor = {};
+	const today = formatCSVDate(date);
+	for (const row of planet.full) {
+		if (row.calendar.includes(today)) {
+			hor = row;
+			break;
+		}
+	}
+	return { ...planet, ...hor };
 }
