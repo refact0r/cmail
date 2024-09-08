@@ -12,16 +12,17 @@
     let distance_km;
     let distance_au;
     let delay;
+    let delay_sec;
 
     distance_km = dist(data.planets[$profile], data.planets[destination]);
     distance_au = formatAU(distance_km);
-    let delay_sec = (distance_km / constants.c) * 1000;
+    delay_sec = (distance_km / constants.c) * 1000;
     delay = formatSecs(delay_sec);
 
     function updateVals() {
         distance_km = dist(data.planets[$profile], data.planets[destination]);
         distance_au = formatAU(distance_km);
-        let delay_sec = (distance_km / constants.c) * 1000;
+        delay_sec = (distance_km / constants.c) * 1000;
         delay = formatSecs(delay_sec);
     }
 </script>
