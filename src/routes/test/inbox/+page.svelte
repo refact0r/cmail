@@ -30,6 +30,7 @@
         text-align: center;
     }
     .objects{
+        padding: 0rem 4rem;
         display: flex;
         gap: 1rem;
     }
