@@ -54,7 +54,7 @@
 						class:selected={select === 'outgoing'}
 						id="outgoing"
 						on:click={() => (select = 'outgoing')}>Outgoing</button
-					>		
+					>
 				</div>
 				<div class="messages">
 					{#if select === 'incoming'}
@@ -147,42 +147,43 @@
 		flex-direction: column;
 		gap: 0.5rem;
 	}
-	.menu{
+	.menu {
 		display: flex;
 		padding-bottom: 1rem;
 	}
 
 	button {
-        font-family: 'Dm Sans', sans-serif;
-        font-size: 1rem;
-        background: var(--bg);
-        color: var(--fg);   
-        text-decoration: none;
-        text-align: left;
-        padding: 1rem .5rem;
-        width: 100%;
-        transition: .3s;
-    }
-    button:hover {
-        background: var(--bg-2);
-        cursor: pointer;
-    }
-    #incoming {
-        border-top: .2rem solid var(--bg-3);
-        border-left: .2rem solid var(--bg-3);
-        border-bottom: .2rem solid var(--bg-3);
-        border-right: none;
-        border-radius: 1rem 0rem 0rem 1rem;
-    }
-    #outgoing {
-        border-bottom: .2rem solid var(--bg-3);
-        border-top: .2rem solid var(--bg-3);
-        border-right: .2rem solid var(--bg-3);
-        border-left: none;
-        border-radius: 0rem 1rem 1rem 0rem;
-    }
-    .selected {
-        background-color: var(--bg-3);
-    }
-
+		font-family: 'Dm Sans', sans-serif;
+		font-size: 1rem;
+		background: var(--bg);
+		color: var(--fg);
+		text-decoration: none;
+		text-align: left;
+		padding: 1rem 0.5rem;
+		width: 100%;
+		transition: 0.3s;
+	}
+	button:hover {
+		background: var(--bg-2);
+		cursor: pointer;
+	}
+	#incoming {
+		border-top: 0.2rem solid var(--bg-3);
+		border-left: 0.2rem solid var(--bg-3);
+		border-bottom: 0.2rem solid var(--bg-3);
+		border-right: none;
+		border-radius: 1rem 0rem 0rem 1rem;
+		text-align: center;
+	}
+	#outgoing {
+		border-bottom: 0.2rem solid var(--bg-3);
+		border-top: 0.2rem solid var(--bg-3);
+		border-right: 0.2rem solid var(--bg-3);
+		border-left: none;
+		border-radius: 0rem 1rem 1rem 0rem;
+		text-align: center;
+	}
+	.selected {
+		background-color: var(--bg-3);
+	}
 </style>
