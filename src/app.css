@@ -1,6 +1,7 @@
 :root {
 	--bg: hsl(0, 0%, 5%);
 	--bg-2: hsl(0, 0%, 10%);
+	--bg-3: hsl(40, 4%, 15%);
 	--fg-3: hsl(50, 2%, 30%);
 	--fg-2: hsl(50, 5%, 50%);
 	--fg: hsl(50, 25%, 80%);
@@ -9,6 +10,13 @@
 }
 
 body {
-	background: var(--bg);
+	--dot-bg: var(--bg);
+	--dot-color: var(--fg);
+	--dot-size: 1px;
+	--dot-space: 22px;
+	background:
+		linear-gradient(90deg, var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space),
+		linear-gradient(var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space),
+		var(--dot-color);
 	color: var(--fg);
 }

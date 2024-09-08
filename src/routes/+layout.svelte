@@ -61,7 +61,7 @@
 	}
 
     a {
-        color: white;
+        color: var(--fg);
         text-decoration: none;
     }
 	
@@ -74,11 +74,11 @@
         font-family: 'Orbitron', sans-serif;
     }
 	label{
-		color: white;
+		color: var(--fg);
 	}
 	.brand {
 		font-size: 2rem;
-		color: white;
+		color: var(--fg);
 		transition: .3s;
 	}
 	.brand:hover{
@@ -97,8 +97,8 @@
 		transition: .3s;
 	}
 	.item:hover{
-		color: black;
-		background-color: white;
+		color: var(--bg);
+		background-color: var(--fg);
 	}
 	.selector{
         margin-top: 2vh;
@@ -107,14 +107,14 @@
 		border-radius: .2rem;
 		outline: none;
 		font-family: 'Orbitron', sans-serif;
-		background-color: black;
-		color: white;
+		background-color: var(--bg);
+		color: var(--fg);
 		width: 8vw;
 		transition: .3s;
 	}
 	select:hover{
-		background-color: white;
-		color: black;
+		background-color: var(--fg);
+		color: var(--bg);
 	}
 
 	.content{
