@@ -4,11 +4,11 @@
 
 ## About the site
 
-Even though the speed of light is approximately 3*10^8 m/s, EM radio signals still take significant amounts of time to travel betweeen different celestial bodies. c-mail accounts for the delay between messages sent and recieved, providing assurance to planetary explorers that their messages have been delivered.
+Even though the speed of light is approximately 3*10^8 m/s, EM radio signals still take significant amounts of time to travel betweeen different celestial bodies. cmail accounts for the delay between messages sent and recieved, providing assurance to planetary explorers that their messages have been delivered.
 
-One planetary profile will be established per planet by the governing body of space exploration for that planet (ex. NASA for Earth). With a strong AM radio wave transmitter, reciever, and decoder, any planet can be connected to the c-mail system.
+One planetary profile will be established per planet by the governing body of space exploration for that planet (ex. NASA for Earth). With a strong AM radio wave transmitter, reciever, and decoder, any planet can be connected to the cmail system.
 
-Estimated arrival times for outgoing messages can be seen in the [`inbox`](https://localhost:5137/inbox). Incoming messages are automatically updated as soon as they are recieved. To send a message, click on the destination planet in the home screen or select it on the [`send`](https://localhost:5137/send) page.
+Estimated arrival times for outgoing messages can be seen in the [`inbox`](https://localhost:5137/inbox). Incoming messages are  updated as they are recieved. To send a message, click on the destination planet in the home screen or select it on the [`send`](https://localhost:5137/send) page.
 
 ## Connection to theme
 
