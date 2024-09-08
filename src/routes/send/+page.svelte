@@ -202,7 +202,8 @@
 		color: var(--bg);
 	}
 	.fill {
-		background-color: var(--bg-3);
+		background-color: var(--bg-2);
+        border: 2px solid var(--bg-3);
 		padding: 2rem;
 		border-radius: 1rem;
 	}
