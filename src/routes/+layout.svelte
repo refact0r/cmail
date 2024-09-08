@@ -73,6 +73,7 @@
 		/* font-family: 'DM Mono', monospace; */
 		font-weight: 500;
 		margin: 0;
+		height: auto;
 	}
 	.title:hover {
 		background-color: var(--bg-2);

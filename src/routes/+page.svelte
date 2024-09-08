@@ -27,7 +27,7 @@
 			<h2>New</h2>
 			<div class="messages">
 				{#each messages as message}
-					<a class="message" href="/inbox/{message.id}">
+					<a class="message box2" href="/inbox/{message.id}">
 						<div class="content-container">
 							<p class="content">{message.content}</p>
 							<div class="new">•</div>
@@ -52,7 +52,7 @@
 			<h2>Outgoing</h2>
 			<div class="messages">
 				{#each outgoingMessages as message}
-					<a class="message" href="/inbox/{message.id}">
+					<a class="message box2" href="/inbox/{message.id}">
 						<div class="content-container">
 							<p class="content">{message.content}</p>
 						</div>
@@ -81,11 +81,7 @@
 		align-items: center;
 		padding: 2rem;
 	}
-	.box {
-		background: var(--bg-2);
-		border-radius: 1rem;
-		border: 2px solid var(--bg-3);
-		padding: 1rem;
+	.side .box {
 		width: 100%;
 	}
 	.box h2 {
@@ -101,10 +97,6 @@
 		gap: 0.5rem;
 	}
 	.message {
-		background-color: var(--bg-3);
-		border-radius: 0.75rem;
-		padding: 0.75rem;
-		border: 2px solid var(--bg-4);
 		display: flex;
 		flex-direction: column;
 		gap: 0.25rem;
