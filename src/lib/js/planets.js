@@ -43,3 +43,23 @@ export function convertPlanet(planet, date) {
 	}
 	return { ...planet, ...hor };
 }
+
+export function msgCoord(message, planet, currDisplay) {
+	const frac =
+		(new Date() - new Date(message.created_at)) /
+		(new Date(message.arrives_at) - new Date(message.created_at));
+	// total distance: pythagorean theorem
+	const totalDist = Math.sqrt(
+		Math.pow(currDisplay.displayX - planet.displayX, 2) +
+			Math.pow(currDisplay.displayY - planet.displayY, 2)
+	);
+	// distance traveled: total distance * fraction of message traveled
+	const dist = totalDist * frac;
+	const rad = Math.atan2(
+		currDisplay.displayY - planet.displayY,
+		currDisplay.displayX - planet.displayX
+	);
+	const x = planet.displayX + dist * Math.cos(rad);
+	const y = planet.displayY + dist * Math.sin(rad);
+	return { displayX: x, displayY: y };
+}
