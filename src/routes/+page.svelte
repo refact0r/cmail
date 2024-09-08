@@ -15,6 +15,7 @@
 <style>
 	.page {
 		display: flex;
+		margin-top: 0rem;
 	}
 	.left {
 		width: 25%;
