@@ -1,6 +1,6 @@
 # cmail
 
-[`cmail`](https://localhost:5137) is a web messaging platform which is designed to simulate communication across civilizations amongst celestial bodies within our solar system, created for the Fall 2024 EmP Hackfest.
+[`cmail`](https://localhost:5137) is a web messaging platform which is designed to simulate communication across civilizations amongst celestial bodies within our solar system, created for the Fall 2024 EmP Hackfest. It won 1st place in Group 3.
 
 ## About the site
 
